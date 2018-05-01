@@ -1,0 +1,15 @@
+.cardtable {
+    max-height: 27rem;
+}
+
+.cardtable .card-body {
+    overflow: auto;
+}
+
+table {
+    direction: rtl;
+}
+
+p.text-center.text-white.m-0 {
+    font-size: 16pt;
+}

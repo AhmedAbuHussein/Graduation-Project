@@ -1,0 +1,38 @@
+html {
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input,
+select,
+textarea {
+    direction: rtl;
+}
+
+.show-img {
+    width: 15rem;
+    height: 16rem;
+    overflow: hidden;
+}
+
+.show-img img {
+    max-width: 100%;
+    height: 100%;
+}
+
+#inputimg {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.fa.fa-eye {
+    position: absolute;
+    top: 0.6rem;
+    left: 1.5rem;
+    color: rgb(252, 214, 0);
+    cursor: pointer;
+}

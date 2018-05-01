@@ -1,0 +1,374 @@
+/*=================================================*/
+
+
+/*============= start my frame work ===============*/
+
+
+/*=================================================*/
+
+.dir {
+    direction: rtl;
+}
+
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    max-width: 100%;
+}
+
+i.fa-fw,
+i.fa {
+    color: #28a745;
+}
+
+select.selectbox.form-control {
+    width: 70%;
+    display: inline-block;
+}
+
+
+/*============= end fram work =====================*/
+
+
+/*======================end==============*/
+
+
+/*start myheader anulse*/
+
+
+/*header content the anlyse wsummerize and two button*/
+
+.myheader {
+    margin-top: 2rem;
+    padding-bottom: 1.5rem;
+}
+
+.myheader .myhead-anlys:not(:last-of-type) {
+    border-right: 2px solid #a4a8a7;
+}
+
+.myheader .myhead-anlys .label-anlys {
+    color: #a2a6a9;
+    margin-bottom: 0;
+}
+
+.myheader .myhead-anlys .label-anlys span {
+    padding-right: 2rem;
+    font-size: 20pt;
+}
+
+.myheader .myhead-anlys .his-type {
+    font-size: 2rem;
+    color: #516178
+}
+
+.myheader .myhead-anlys .comp-time {
+    margin-top: 0;
+    color: #a9b0b8;
+    font-size: 1.6rem;
+}
+
+.myheader .myhead-anlys .comp-time bdi {
+    color: #2abf97;
+    font-style: italic;
+}
+
+.myheader .myhead-anlys button {
+    font-size: 22pt;
+    height: 5.5rem;
+}
+
+
+/*======================================================*/
+
+
+/*===========start main graph section ====================*/
+
+.main-graph .header-main-graph {
+    background: #fff;
+    padding-top: 1rem;
+    border-bottom: 0.5rem solid #e8e9eb;
+}
+
+body>div.main-graph>div>div.graph>div>div.col-md-4>h2 {
+    font-size: 5rem;
+}
+
+.main-graph .header-main-graph .peroid select {
+    font-size: 15pt;
+    height: 2rem;
+    direction: rtl;
+}
+
+
+/*satrt reaL GRAP*/
+
+.main-graph .graph {
+    background-color: #fff;
+    padding-top: 2rem;
+    padding-right: 2rem;
+}
+
+.main-graph .graph h2 {
+    padding-right: 0;
+    border-bottom: 0.2rem solid #e8e9eb;
+    padding-bottom: 1.3rem;
+}
+
+.main-graph .graph .myprogressinfo {
+    padding-right: 1.2rem;
+    padding-left: 1.2rem;
+}
+
+
+/*============================================================*/
+
+
+/*start assistant grapg section*/
+
+.assistant-graphs {
+    padding-top: 3rem;
+}
+
+.assistant-graphs .mygraps {
+    background-color: #f8f8f8;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+}
+
+.assistant-graphs .mygraphs-tor .theinfo {
+    padding: 2rem;
+    background-color: #fff;
+    margin-bottom: 3rem;
+}
+
+.assistant-graphs .mygraphs-tor .h2 {
+    border-bottom: 0.2rem solid #e8e9eb;
+    padding-bottom: 2rem;
+}
+
+.assistant-graphs .mygraphs-tor .h2 .option {
+    position: relative;
+    display: inline-block;
+    width: 61%;
+    font-size: 15pt;
+    text-align: left;
+    margin-right: 17%;
+}
+
+.assistant-graphs .mygraphs-tor .myselect5,
+.assistant-graphs .mygraphs-tor .myselect6 {
+    font-size: 14pt;
+    text-align: left;
+}
+
+.assistant-graphs .mygraphs-tor .myselect5 i {
+    font-size: 19px;
+}
+
+body div.assistant-graphs>div>div>div>div.col-xs-12.mygraphs-tor>div.theinfo {
+    margin-bottom: 0;
+}
+
+.mygraphs-tor .endgraphs {
+    background-color: #fff;
+}
+
+.lastone {
+    width: 100%;
+    padding: 0 1rem;
+}
+
+.lastone .theinfo {
+    padding: 1rem 0;
+    border-bottom: 0.3rem solid #f8f8f8;
+    margin-bottom: 1.1rem;
+    background: white;
+    direction: rtl;
+    font-size: 16pt;
+}
+
+.lastone .theinfo .testing {
+    text-align: center;
+}
+
+.lastone .theinfo .testing select {
+    font-size: 13pt;
+}
+
+.lastone .endgraphs {
+    background: #fff;
+}
+
+#chart-area2 {
+    max-height: 25rem;
+    max-width: 90%;
+    margin: auto;
+}
+
+.assistant-graphs .mygraphs-tor span {
+    font-size: 16pt !important;
+}
+
+
+/*========================================================*/
+
+
+/*media Quary for sm*/
+
+@media (min-width:769px) and (max-width:991px) {
+    .myheader .myhead-anlys {
+        margin-bottom: 1rem;
+        border-bottom: 0.4rem solid #e8e9eb;
+    }
+    .main-graph .graph h2 {
+        padding-bottom: 0.2rem;
+        font-size: 13pt;
+        font-weight: bold;
+        text-align: right;
+    }
+    .main-graph .graph .infoStorProg {
+        margin-bottom: 0.2rem !important;
+    }
+    .main-graph .graph .myprogressinfo {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    .main-graph .header-main-graph .peroid select {
+        font-size: 10pt;
+    }
+    /*************************************************/
+    .assistant-graphs {
+        padding-top: 1.2rem;
+    }
+    .assistant-graphs .mygraphs-tor .theinfo {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        max-height: 100%;
+    }
+    .assistant-graphs .mygraphs-tor .mygraphs-tor {
+        box-sizing: border-box;
+    }
+    .assistant-graphs .mygraphs-tor .h2 {
+        padding-bottom: 0.2rem;
+        direction: rtl;
+        text-align: right;
+    }
+    .assistant-graphs .mygraphs-tor span {
+        font-size: 10pt !important;
+    }
+    .assistant-graphs .mygraphs-tor .option i {
+        position: relative;
+        right: 0;
+    }
+    .assistant-graphs .mygraphs-tor .selectbox {
+        font-size: 10pt;
+    }
+    .assistant-graphs .mygraphs-tor .h2 .option {
+        margin-right: 0;
+        width: auto;
+        padding: 0.08rem;
+    }
+    .assistant-graphs .mygraphs-tor .infoStorProg {
+        padding: 0.1rem;
+        margin-bottom: 0.2rem !important;
+        font-size: 9pt;
+    }
+    .assistant-graphs .mygraphs-tor .progress-bar {
+        font-size: 12pt;
+    }
+    /***************************************************
+    .myheader .myhead-anlys:nth-of-type(2) {
+        border-right: none !important;
+    }
+    .main-graph .header-main-graph {
+        padding-left: 10px;
+        padding-right: 10px;
+    }*/
+    .lastone {
+        padding: 1rem;
+    }
+    .lastone .theinfo {
+        margin-bottom: 0.1rem;
+        direction: rtl;
+    }
+    .lastone .theinfo .h2 .row .testing {
+        font-size: 15pt;
+        padding-right: 0.2rem;
+        text-align: center
+    }
+    .lastone .theinfo .h2 .row .testing select {
+        font-size: 12pt;
+    }
+}
+
+
+/*media Quary for xs*/
+
+@media (max-width:767px) {
+    .myheader .myhead-anlys {
+        border: none !important;
+        border-bottom: 2px solid #a4a8a7 !important;
+        margin-bottom: 16px;
+        padding-bottom: 16px;
+    }
+    .myheader .myhead-anlys:last-of-type {
+        margin-bottom: 0px;
+        max-height: 6.9rem;
+    }
+    .main-graph .header-main-graph {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .assistant-graphs .mygraps .mygraphs-tor:not(:first-of-type) {
+        margin-top: 20px !important;
+    }
+    body>div.main-graph>div>div.graph>div>div.col-md-4>h2 {
+        margin-top: 50px;
+    }
+    .assistant-graphs .mygraphs-tor .myselect5,
+    .assistant-graphs .mygraphs-tor .myselect6 {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .main-graph .graph h2 {
+        padding-right: 0;
+        margin-top: 1.3rem;
+        text-align: right;
+        border-bottom: 0.2rem solid #e8e9eb;
+        padding-bottom: 0.3rem;
+        direction: rtl;
+    }
+    .lastone .theinfo .testing {
+        font-size: 13pt;
+    }
+    .lastone .theinfo .testing.testone {
+        font-size: 16pt;
+        margin-bottom: 1.5rem;
+    }
+    .lastone .theinfo .testing select {
+        font-size: 11pt;
+    }
+}
+
+
+/*media 5000*/
+
+@media (max-width:511px) {
+    .main-graph .header-main-graph .peroid .myselect {
+        width: 100% !important;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .assistant-graphs .mygraphs-tor .testing,
+    .assistant-graphs .mygraphs-tor .testing {
+        float: none !important;
+    }
+    body>div.assistant-graphs>div>div>div>div.col-xs-12.mygraphs-tor>div.theinfo>div>div>div.col-md-6.col-sm-5.testing>div {
+        font-size: 23px;
+    }
+    .main-graph .header-main-graph .peroid select {
+        font-size: 11pt;
+    }
+}
