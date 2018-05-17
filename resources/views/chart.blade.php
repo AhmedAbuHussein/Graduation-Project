@@ -30,10 +30,10 @@
             </div>
             <div class=" myhead-anlys col-lg-3 col-md-6 col-6">
                 <div class="label-anlys">
-                    <i class="fa fa-shopping-bag fa-2x fa-fw"></i><span>المتاح حالبا</span>
-                </div>
+                    <i class="fa fa-shopping-bag fa-2x fa-fw"></i><span>الفئات المتاحه</span>
+                </div> 
                 <span class="his-type">
-						<bdi class="number_avg">350.5</bdi>
+						<bdi class="number_avg">{{$ava}}</bdi>
 					</span>
             </div>
             <div class=" myhead-anlys col-lg-3 col-md-6 col-6">
@@ -50,7 +50,7 @@
         <div class="header-main-graph">
             <div class="row">
                 <div class="col-md-6 label-graph">
-                    <p class="lead text-center">احصائيات الصرف والاضافه لجميع المخازن</p>
+                    <p class="lead text-center"> {{date('Y'). '-' . (date('Y')-1)}} احصائيات الصرف والاضافه لجميع المخازن</p>
                 </div>
                 <div class="col-md-6 peroid">
                     <div class="row">
@@ -58,16 +58,21 @@
                             <label>
 			   	       	   	<i class="fa fa-calendar fa-2x fa-fw"></i>
 			   	       	   </label>
-                            <select name="slecttime1" class="selectbox form-control"><!--start time-->
-							 <option value="25-3-2016">october 25,2017</option>
+                            <select id="endDate" class="selectbox form-control"><!--end time-->
+                             @foreach ($date as $d)
+                             <option value="{{$d}}">{{$d}}</option>
+                             @endforeach
 						    </select>
                         </div>
                         <div class="col-6 myselect select-box">
+                            
                             <label>
 			   	       	   	<i class="fa fa-calendar fa-2x fa-fw"></i>
 			   	       	   </label>
-                            <select name="slecttime2" class="selectbox form-control"><!--end time-->
-								<option value="25-4-2016">october 25,2017</option>
+                            <select id="startDate" class="selectbox form-control"><!--start time-->
+                                @foreach ($date as $d)
+                                    <option {{$date[count($date)] == $d ?'selected':''}} value="{{$d}}">{{$d}}</option>
+                                @endforeach
 							 </select>
                         </div>
                     </div>
@@ -81,7 +86,7 @@
         <!--==========================the main graph real grap =======-->
         <div class="graph">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-8" id="canves-parent">
                     <canvas id="canvas-stores-graph"></canvas>
                 </div>
                 <div class="col-md-4 pb-2">
@@ -192,7 +197,7 @@
                     <div class="theinfo">
                         <div class="h2">
                             <i class="fa fa-database"></i>
-                            <span>المتاح حاليا ف المخزن</span>
+                            <span>المتاح حاليا في المخزن</span>
                         </div>
                         <div class="mycircl-grap" style="width: 90%;">
 
@@ -200,46 +205,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 lastone">
-                    <div class="theinfo">
-                        <div class="h2">
-                            <div class="row">
-
-                                <div class="col-md-6 col-12 testing testone">
-                                    <div class="label-forgrap">
-                                        <i class="fa fa-industry"></i>
-                                        <span>العمليات على االمخزونات </span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3 col-6 testing">
-                                        <div class="myselect5 select-box">
-                                            <i class="fa fa-database select-pos"></i>
-                                            <select name="mystores" class="selectbox form-control" id="">
-                                                        <option value="1">مخزن مستهلك</option>
-                                                        <option value="2">مخزن كهنه</option>
-                                                        <option value="3">مخزن خامات</option>
-                                                        <option value="4">مخزن مستديم</option>
-                                                    </select></div>
-                                    </div>
-                                    <div class="col-md-3 col-6 testing">
-                                        <div class="myselect6">
-                                            <i class="fa fa-calendar select-pos"></i>
-                                            <select name="mytimestores" class="selectbox form-control" id="">
-                                                        <option value="1">الاسبوع الماضى</option>
-                                                        <option value="2">الاسبوع الحالى</option>
-                                                        <option value="3">الشهر الماضى</option>
-                                                        <option value="4">اليوم</option>
-                                                    </select></div>
-                                    </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="endgraphs">
-                        <canvas id="chart-area2" />
-                    </div>
-                </div>
+                
             </div>
         </div>
 

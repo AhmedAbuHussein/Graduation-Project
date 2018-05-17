@@ -17,15 +17,15 @@
     <link href="/res/css/font-awesome.min.css" rel="stylesheet">
     <style>
         #navimg{
-            max-width: 2rem;
-            max-height: 2rem;
+            width: 2rem;
+            height: 2rem;
             border-radius: 100%;
         }
     </style>
     @yield('style')
 </head>
 <body>
-    <div id="app">
+    <div>
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel pt-0 pb-0">
                     <div class="container" style="direction: rtl;">
                         @guest
@@ -45,7 +45,7 @@
                             <ul class="navbar-nav pr-1 ml-auto" style="font-size:15pt;">
                                 <li><a class="nav-link" href="/store">المخازن</a></li>
                                 <li><a class="nav-link" href="/chart">الاحصائيات</a></li>
-                                <li><a class="nav-link" href="/covenant">العهد</a></li>
+                                <li><a class="nav-link" href="/covenant-owner">العهد</a></li>
                                 <li><a class="nav-link" href="/users">المستخدمين</a></li>
                             </ul>
                             @endguest
@@ -81,7 +81,7 @@
                     </div>
                 </nav>
 
-        <main>
+        <main id="app">
             @yield('content')
         </main>
     </div>

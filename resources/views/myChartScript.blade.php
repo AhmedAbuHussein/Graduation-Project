@@ -2,38 +2,75 @@
 <script>
 /*global $*/
 /*===================================== template data =======================*/
-var input1 =  ['مخزن الكهنه','مخزن الخامات','مخزن المستدم','مخزن المستهلك'],
-	input2 = 'bar',
-	input3 = [[800,750,850,900],[650,350,700,350]],
+var arr = [];
+@foreach ($count as $c)
+    arr.push({{$c}});
+@endforeach
+var input1 =  ['مخزن المستهلك ','مخزن المستدم ',' مخزن الخامات','مخزن الكهنه'],
+    input2 = 'bar',
+	input3 = [ arr,[650,350,700,350]],
 	input4 = ['المتاح','المستهلك'],
 	input5 = 'canvas-stores-graph',
-	input6 = ["منتج 1", "منتح2", "منتج 3", "منتجات اخرى"],
-	input7 = 'line',
-	input9 =['مصرف','مدخل'] ,
-	input8 = [ [400,620,120,300 ],[ 500,440,240,280]],
-	input10 ='chart-area2',
 	myinput1 = 'doughnut',
 	myinput2 =[100,50,20,60],
-	myinput3 = ["منتح 1", "منتج 2","منتج 3","منتجات اخرى"],
+	myinput3 = ["المستهلك", "المستديم","الخامات","الكهنه"],
 	myinput5 = "chart-area",
-	myinput4 = 'right';
-
+    myinput4 = 'right';
 
 /*background color */
-var colorbackground = [ "rgba(50,200,52,0.4)",
-						"rgba(90,80,172,0.4)",
-					   "rgba(20,50,250,0.6)",
-					   'rgba(230,60,52,0.6)',
-                       "rgba(20,200,152,0.6)"
-                       ];
+var colorbackground = [ 
+    "rgba(50,200,52,0.4)",
+    "rgba(90,80,172,0.4)",
+    "rgba(20,50,250,0.6)",
+    'rgba(230,60,52,0.6)',
+    "rgba(20,200,152,0.6)"
+    ];
 /*=========================================================================*/
 
 /*========================== load function =================================================*/
 
 window.onload = function() {
-	make_char_line_bar(input1,input2,input3,input4,input5,false,true,'مخازن وعهد');/*cahar1*/
-	make_char_line_bar(input6,input7,input8,input9,input10,true,false,'ali');/*char 2*/
-	make_doughnut( myinput1, myinput2, myinput3, myinput4, myinput5, colorbackground);/*chart*/
+    canvas = document.querySelector('#'+input5);
+    ctx = canvas.getContext('2d');
+    make_char_line_bar(ctx,input1,input2,input3,input4,input5,false,true,'مخازن وعهد');/*cahar1*/
+    
+    $.get('/chartdoughnut',function(res){
+        myinput2 = JSON.parse(res);
+        make_doughnut(myinput1, myinput2, myinput3, myinput4, myinput5, colorbackground);/*chart*/
+    });
+    $('#startDate').change(function(){
+
+        var startdate = $(this).val();
+        var endDate = $('#endDate').val();
+    
+        $.get('/chartAjax',{'start':startdate,'end':endDate},function(res){
+            input3 = [JSON.parse(res),[650,350,700,350]]
+            $('#'+input5).remove(); // this is my <canvas> element
+            $('#canves-parent').append('<canvas id="'+input5+'"><canvas>');
+            canvas = document.querySelector('#'+input5);
+            ctx = canvas.getContext('2d');
+            make_char_line_bar(ctx,input1,input2,input3,input4,input5,false,true,'مخازن وعهد');/*cahar1*/
+        });
+    
+    });
+
+    $('#endDate').change(function(){
+
+        var startdate = $('#startDate').val();
+        var endDate = $(this).val();
+    
+        $.get('/chartAjax',{'start':startdate,'end':endDate},function(res){
+           
+            input3 = [JSON.parse(res),[650,350,700,350]]
+            $('#'+input5).remove(); // this is my <canvas> element
+            $('#canves-parent').append('<canvas id="'+input5+'"><canvas>');
+            canvas = document.querySelector('#'+input5);
+            ctx = canvas.getContext('2d');
+            make_char_line_bar(ctx,input1,input2,input3,input4,input5,false,true,'مخازن وعهد');/*cahar1*/
+            
+        });
+    
+    });
 
 };
 /*
@@ -93,8 +130,9 @@ function make_doughnut(type,data_set,labels_data_set,legend_postion,canvas_id,ba
  * to maker bar states for the datasets for this label_datasets_char
 */
 
-function make_char_line_bar(labels_char,type_char,datasets_char,label_datasets_char,id_canves,file_mode = false,display_log = false,log_label = 'مخازن وعهد')
+function make_char_line_bar(ctx,labels_char,type_char,datasets_char,label_datasets_char,id_canves,file_mode = false,display_log = false,log_label = 'مخازن وعهد')
 { 
+    
 	if(datasets_char.length != label_datasets_char.length)
 		{
 			alert('error in the length not equal the label input3 and input4 ')
@@ -131,8 +169,9 @@ function make_char_line_bar(labels_char,type_char,datasets_char,label_datasets_c
 				chartData.datasets[i] = x;   
 			}
 					  
-	    }
-	 var ctx = document.getElementById(id_canves).getContext("2d");
+        }
+
+        
             var cahr1 = new Chart(ctx, {
                 type: type_char,
                 data: chartData,
@@ -148,8 +187,14 @@ function make_char_line_bar(labels_char,type_char,datasets_char,label_datasets_c
                     }
                 }
             });
-	
-	
+    
+            
+            
 }
 /*==============  end ===========================================*/
+
+
+
+
+
 </script>

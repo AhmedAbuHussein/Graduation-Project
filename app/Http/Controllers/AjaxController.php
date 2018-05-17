@@ -8,6 +8,7 @@ use App\Models\Datastore;
 use App\Models\Store;
 use App\User;
 use App\Models\Additem;
+use App\Models\Employee;
 
 class AjaxController extends Controller
 {
@@ -77,5 +78,33 @@ class AjaxController extends Controller
     public function itemsname(Request $req){
         $items = Datastore::select('name')->where('store_id','=',$req->id)->get();
         return json_encode($items);
+    }
+
+    public function chartAjax(Request $req){
+        $count = array();
+        $stores = \App\Models\Store::all();
+        for($i=1;$i<=count($stores);$i++){
+            array_push($count,Additem::join('datastores','datastores.id','=','additems.datastore_id')
+                                        ->join('userhistories','userhistories.additem_id','=','additems.id')
+                                        ->where('datastores.store_id','=',$i)
+                                        ->where('userhistories.date','>=',$req->start)
+                                        ->where('userhistories.date','<=',$req->end)
+                                        ->sum('additems.quantity'));
+        }
+        return json_encode($count);
+    }
+
+    public function chartdoughnut(Request $req){
+        $items = array();
+        $stores = \App\Models\Store::all();
+        for($i=1;$i<=count($stores);$i++){
+            array_push($items,count(Datastore::where('store_id','=',$i)->get()));
+        }
+        return json_encode($items);
+    }
+
+    public function employees(Request $req){
+        $emps = Employee::all();
+        return json_encode($emps);
     }
 }

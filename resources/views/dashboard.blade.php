@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/dashboard.css" />
 </head>
 <body>
-<div id="app" class="container-fluid">
+<div class="container-fluid">
         <div class="modal fade" id="clock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -104,7 +104,7 @@
                     <ul class="navbar-nav mr-auto d-lg-none">
                         <li><a class="nav-link" href="/store">المخازن</a></li>
                         <li><a class="nav-link" href="/chart">الاحصائيات</a></li>
-                        <li><a class="nav-link" href="/covenant">العهد</a></li>
+                        <li><a class="nav-link" href="/covenant-owner">العهد</a></li>
                         <li><a class="nav-link" href="/users">المستخدمين</a></li>
 
                     </ul>
@@ -147,12 +147,12 @@
                 <div class="content">
                     <h2 class="text-center"><bdi>المخـــازن العــامـه</bdi></h2>
                     <hr />
-                    <div class="content-box">
+                    <div id="app" class="content-box">
                      
                         <div class="row text-white">
 
                             <div class="col-sm-6 mt-3 col-md-3">
-                                <a class="link" href="/covenant">
+                                <a class="link" href="/covenant-owner">
                                     <div class="card bg-danger">
                                         <div class="card-body text-right">
                                             <i class="fa fa-shopping-bag pull display-3"></i>
@@ -168,7 +168,7 @@
                                     <div class="card bg-info">
                                         <div class="card-body text-right">
                                             <i class="fa fa-line-chart pull display-3"></i>
-                                            <span class="text-right display-3">185</span>
+                                            <span class="text-right display-3">{{$datastore}}</span>
                                             <h3 class="text-center">احصائيات</h3>
                                         </div>
                                     </div>
@@ -192,7 +192,7 @@
                                     <div class="card bg-primary">
                                         <div class="card-body text-right">
                                             <i class="fa fa-pie-chart pull display-3"></i>
-                                            <span class="text-right display-3">{{$datastore}}</span>
+                                            <span class="text-right display-3">{{count($stores)}}</span>
                                             <h3 class="text-center">المخازن</h3>
                                         </div>
                                     </div>
@@ -215,45 +215,43 @@
                             <script src="/res/js/jquery.js"></script>
                             <script src="/res/js/Chart.js"></script>
                             <script>
-                               let adds=[];
-                                let cov = [10,23,15,8];
-                                $.get('/mainchart',function(response){
-                                   adds = JSON.parse(response);
-                               
-                                var config = {
-                                    type: 'line',
-                                    data: {
-                                        labels: ["المستهلك", "المستديم", "الخامات", "كهنه"],
-
-                                        datasets: [{
-                                            label: "احصائيات الصرف",
-                                            data: cov,
-                                            fill: true,
-                                            borderColor: "#f27",
-                                            backgroundColor: "rgba(255,20,70,0.4)"
-                                        }, {
-                                            label: "احصائيات الاضافه ",
-                                            data: adds,
-                                            fill: true,
-                                            borderColor: "#27f",
-                                            backgroundColor: "rgba(20,60,255,0.4)"
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        title: {
-                                            display: true,
-                                            text :"الاحصائيات العامه للمخازن"
-                                            
-                                        }
-                                    }
-                                };
-                                window.onload = function(){
-                                    var ctx = document.getElementById("dashChart").getContext("2d");
-                                    window.myLine = new Chart(ctx, config);
-                                }    
-                            });
+                                $(function(){                                    
+                                    var adds=[];
+                                    var cov = [10,23,15,8];
+                                    $.get('/mainchart',function(response){
+                                        adds = JSON.parse(response);
+                                        var config = {
+                                            type: 'line',
+                                            data: {
+                                                labels: ["المستهلك", "المستديم", "الخامات", "كهنه"],
+                                                datasets: [{
+                                                    label: "احصائيات الصرف",
+                                                    data: cov,
+                                                    fill: true,
+                                                    borderColor: "#f27",
+                                                    backgroundColor: "rgba(255,20,70,0.4)"
+                                                }, {
+                                                    label: "احصائيات الاضافه ",
+                                                    data: adds,
+                                                    fill: true,
+                                                    borderColor: "#27f",
+                                                    backgroundColor: "rgba(20,60,255,0.4)"
+                                                }]
+                                            },
+                                            options: {
+                                                responsive: true,
+                                                title: {
+                                                    display: true,
+                                                    text :"الاحصائيات العامه للمخازن"
+                                                    
+                                                }
+                                            }
+                                        };
                                 
+                                    var ctx = document.getElementById("dashChart").getContext("2d");
+                                    var draw = new Chart(ctx, config);
+                                });
+                            });
                             </script>               
 
     

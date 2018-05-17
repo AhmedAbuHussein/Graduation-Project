@@ -31,7 +31,6 @@ class DatabaseNotification extends Notification
             "row_id"=>$post->row_id,
             "message"=>$post->message,
             "store_id"->$post->store_id,
-            
         ];
     }
 

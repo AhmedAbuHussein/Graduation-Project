@@ -9,6 +9,7 @@ use App\Models\Datastore;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Additem;
 use App\Userhistorie;
+use App\Models\Userhistory;
 
 class HomeController extends Controller
 {
@@ -19,10 +20,11 @@ class HomeController extends Controller
     }
 
     public function index(){
-       $adds = Additem::orderBy('id','DESC')->limit(5)->get();
-       $datastore = Datastore::all();
-       $users = User::all();
-       $stores = Store::all();
+        $adds = Additem::orderBy('id','DESC')->limit(5)->get();
+        $datastore = Datastore::all();
+        $users = User::all();
+        $stores = Store::all();
+
         $arr = Array(
             'title' =>'الرئيسيه',
             'adds'=>$adds,
@@ -70,6 +72,57 @@ class HomeController extends Controller
         return view('edituser',$arr);
     }
 
+    public function modifyusersave(Request $req){
+        $this->validate($req,[
+            'fullname'=>'required',
+            'username'=>'required',
+            'email'=>'required',
+            'role'=>'required',
+            'store_id'=>'required',
+            'phone'=>'required',
+            'address'=>'required'
+        ]);
+
+        $fullname = filter_var($req->fullname,FILTER_SANITIZE_STRING);
+        $username = filter_var($req->username,FILTER_SANITIZE_STRING);
+        $email = filter_var($req->email,FILTER_SANITIZE_EMAIL);
+        $phone = filter_var($req->phone,FILTER_SANITIZE_NUMBER_INT);
+        $address = filter_var($req->address,FILTER_SANITIZE_STRING);
+        if(isset($req->password)){
+            $password = filter_var($req->password,FILTER_SANITIZE_STRING);
+        }
+        if($req->hasFile('imgfile')){
+           $img = Auth::id()."_". time() . ".".$req->imgfile->getClientOriginalExtension();
+        }
+        $item = User::find($req->id);
+        $item->fullname = $fullname;
+        $item->username = $username;
+        $item->email = $email;
+        $item->phone = $phone;
+        $item->address = $address;
+        if(isset($password)){
+            $item->password = Hash::make($password);
+        }
+        if(isset($img)){
+            $item->img = $img;
+        }
+        $item->job_name = $req->role;
+        if($req->role == 'مدير'){
+            $item->role = 0;
+        }elseif($req->role == 'امين مخزن'){
+            $item->role = 1;
+        }else{
+            $item->role = 2;
+        }
+        $item->store_id = $req->store_id;
+        $item->save();
+
+        if(isset($img)){
+            $req->imgfile->move(public_path('/uploaded'),$img);
+        }
+        return redirect('/users');
+    }
+
 
     public function profile(Request $req){
         $user = User::find($req->get('id'));
@@ -88,6 +141,10 @@ class HomeController extends Controller
             'item'=>$item,
         );
         return view('editstore',$arr);
+    }
+
+    public function editDatastoresave(Request $req){
+        
     }
 
     public function details(Request $req,$id){
@@ -167,11 +224,24 @@ class HomeController extends Controller
                             ->where('source','=',$source)
                             ->orderby('id','DESC')
                             ->limit(1)->get();
-        $date = new Userhistorie();
+        $date = new Userhistory();
         $date->user_id = Auth::id();
         $date->additem_id = $itemid[0]->id;
         $date->date = now();
         $date->save();
 
+        return redirect('/store');
     }
+
+    public function test(){
+        $data = Datastore::all();
+        foreach($data as $d){
+            $d->quantity = Additem::where('datastore_id','=',$d->id)->sum('quantity');
+            $d->save();
+        }
+        echo 'done';
+    }
+
+
+    
 }

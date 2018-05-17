@@ -54,7 +54,7 @@
 <div class="container">
     <div class="header">
         <div class="header-img">
-            <img src="/img/{{!empty($user->img)?$user->img:'unknown.png'}}" class="img" alt="user image" />
+            <img src="{{!empty($user->img)?'/uploaded/'.$user->img:'/img/unknown.png'}}" class="img" alt="user image" />
             <h3 class="text-center">{{$user->fullname}}</h3>
         </div>
     </div>

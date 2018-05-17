@@ -8,10 +8,11 @@
         @if(isset($user))
     <h2 class="text-center text-muted mt-3 mb-4">تعديل المعلومات الشخصيه</h2>
    
-    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+    <form method="POST" action="/modify" enctype="multipart/form-data">
         <div class="row text-center">
                     
             @csrf
+            <input type="hidden" name="id" value="{{$user->id}}">
             <div class="col-md-7 order-md-1">
 
                 <div class="form-group row">
@@ -85,9 +86,7 @@
                             id="password" 
                             type="password" 
                             class="form-control dir{{ $errors->has('password') ? ' is-invalid' : '' }}" 
-                            name="password" 
-                            
-                            required>
+                            name="password">
                             <i class="fa fa-eye"></i>
 
                         @if ($errors->has('password'))
@@ -119,7 +118,7 @@
                 <div class="form-group row" id="store">
 
                     <div class="col-md-9 order-0">
-                        <select id="store_id" class="form-control dir{{ $errors->has('store_id') ? ' is-invalid' : '' }} dir" name="store_id" required>
+                        <select id="store_id" class="form-control dir{{ $errors->has('store_id') ? ' is-invalid' : '' }} dir" name="store_id">
                             <option value="">اختار المخزن</option>
                             @foreach ($stores as $store)
                             <option value="{{$store->id}}" {{$user->store_id == $store->id? 'selected':''}}>{{$store->name}}</option>
@@ -182,7 +181,7 @@
 
 
                 <label for="inputimg" class="show-img pb-0 m-auto btn btn-outline-info">
-                    <img src="/img/{{!empty($user->img)?$user->img:'unknown.png'}}" alt="live preview" class="preview img-responsive center-block">
+                    <img src="{{!empty($user->img)?'/uploaded/'.$user->img:'/img/unknown.png'}}" alt="live preview" class="preview img-responsive center-block">
                 </label>
                 <input id="inputimg" type="file" max="1" name="imgfile" />
                     
