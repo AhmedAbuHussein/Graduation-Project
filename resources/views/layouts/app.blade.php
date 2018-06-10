@@ -25,63 +25,65 @@
     @yield('style')
 </head>
 <body>
-    <div>
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel pt-0 pb-0">
-                    <div class="container" style="direction: rtl;">
+    <div id="app">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel pt-0 pb-0">
+                <div class="container" style="direction: rtl;">
+                    @guest
+                    @else
+                    <a class="navbar-brand" style="font-size:16pt" href="{{ url('/dashboard') }}">
+                        الرئيسـيه
+                    </a>
+                    @endguest
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <!-- Left Side Of Navbar -->
                         @guest
                         @else
-                        <a class="navbar-brand" style="font-size:16pt" href="{{ url('/dashboard') }}">
-                            الرئيسـيه
-                        </a>
+                        <ul class="navbar-nav pr-1 ml-auto" style="font-size:15pt;">
+                            <li><a class="nav-link" href="/store">المخازن</a></li>
+                            <li><a class="nav-link" href="/chart">الاحصائيات</a></li>
+                            <li><a class="nav-link" href="/covenant-owner">العهد</a></li>
+                            <li><a class="nav-link" href="/users">المستخدمين</a></li>
+                        </ul>
                         @endguest
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-        
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <!-- Left Side Of Navbar -->
+                        <!-- Right Side Of Navbar -->
+                        <ul class="navbar-nav mr-auto">
+                            <!-- Authentication Links -->
                             @guest
+                                <li><a class="nav-link" href="{{ route('login') }}">{{ __('تسجيل دخول') }}</a></li>
                             @else
-                            <ul class="navbar-nav pr-1 ml-auto" style="font-size:15pt;">
-                                <li><a class="nav-link" href="/store">المخازن</a></li>
-                                <li><a class="nav-link" href="/chart">الاحصائيات</a></li>
-                                <li><a class="nav-link" href="/covenant-owner">العهد</a></li>
-                                <li><a class="nav-link" href="/users">المستخدمين</a></li>
-                            </ul>
-                            @endguest
-                            <!-- Right Side Of Navbar -->
-                            <ul class="navbar-nav mr-auto">
-                                <!-- Authentication Links -->
-                                @guest
-                                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('تسجيل دخول') }}</a></li>
-                                @else
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                           <img id="navimg" src="{{isset(Auth::user()->img)?'/uploaded/' . Auth::user()->img:'/img/unknown.png'}}"> {{ Auth::user()->fullname }} <span class="caret"></span>
+                                <notification></notification>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <img id="navimg" src="{{isset(Auth::user()->img)?'/uploaded/' . Auth::user()->img:'/img/unknown.png'}}"> {{ Auth::user()->fullname }} <span class="caret"></span>
+                                    </a>
+    
+                                    <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/profile?id={{Auth::id()}}">الملف الشخصي</a>
+                                        <a class="dropdown-item" href="/modify?id={{Auth::id()}}">تعديل</a>
+                                        
+                                        <a class="dropdown-item" style="border-top:0.05rem solid #f3f3f3;" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                            {{ __('تسجيل خروج') }}
                                         </a>
-        
-                                        <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="/profile?id={{Auth::id()}}">الملف الشخصي</a>
-                                            <a class="dropdown-item" href="/modify?id={{Auth::id()}}">تعديل</a>
-                                            
-                                            <a class="dropdown-item" style="border-top:0.05rem solid #f3f3f3;" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                {{ __('تسجيل خروج') }}
-                                            </a>
-        
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endguest
-                            </ul>
-                        </div>
+    
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                    </div>
+                                </li>
+                                
+                            @endguest
+                        </ul>
                     </div>
-                </nav>
+                </div>
+            </nav>
 
-        <main id="app">
+        <main>
             @yield('content')
         </main>
     </div>

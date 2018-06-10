@@ -31,6 +31,7 @@ class CreateAdditemsTable extends Migration
                     ->on('users')
                     ->onUpdate("cascade")
                     ->onDelete("set null");
+            $table->date('date');
         });
     }
 

@@ -9,6 +9,7 @@ use App\Models\Store;
 use App\User;
 use App\Models\Additem;
 use App\Models\Employee;
+use App\Models\Covenant;
 
 class AjaxController extends Controller
 {
@@ -52,24 +53,33 @@ class AjaxController extends Controller
         $id = $req->get('id');
 
         $items = Additem::join('datastores','datastores.id','=','additems.datastore_id')
-        ->join('users','users.id','=','additems.user_id')
-        ->select('additems.*','datastores.name AS dataname','users.fullname AS username')
-        ->where('datastore_id','=',$id)
-        ->orderBy('id','DESC')
-        ->get();
+                        ->join('users','users.id','=','additems.user_id')
+                        ->select('additems.*','datastores.name AS dataname','users.fullname AS username')
+                        ->where('datastore_id','=',$id)
+                        ->orderBy('id','DESC')
+                        ->get();
 
         return json_encode($items);
     }
 
     public function mainChart(Request $req){
         $arr=array();
-        
-        for($i=1;$i<=4;$i++){
+        $arr1 = array();
+        $arr2 = array();
+        for($i=1;$i<=count(Store::all());$i++){
             $item = Additem::join('datastores','datastores.id','=','additems.datastore_id')
-                                ->select('additems.id')
-                                ->where('datastores.store_id','=',$i)->get();
-            array_push($arr,count($item));
+                                ->where('datastores.store_id','=',$i)
+                                ->sum('additems.quantity');
+            array_push($arr1,$item);
+
+            $item = Covenant::join('datastores','datastores.id','=','covenants.datastore_id')
+                                ->where('datastores.store_id','=',$i)
+                                ->sum('covenants.quantity');
+            
+            array_push($arr2,$item);
+
         }
+        array_push($arr,$arr1,$arr2);
         
       
         return json_encode($arr);
@@ -82,15 +92,24 @@ class AjaxController extends Controller
 
     public function chartAjax(Request $req){
         $count = array();
+        $countadd = array();
+        $countcov = array();
         $stores = \App\Models\Store::all();
         for($i=1;$i<=count($stores);$i++){
-            array_push($count,Additem::join('datastores','datastores.id','=','additems.datastore_id')
-                                        ->join('userhistories','userhistories.additem_id','=','additems.id')
+            array_push($countadd,Additem::join('datastores','datastores.id','=','additems.datastore_id')
+                                        
                                         ->where('datastores.store_id','=',$i)
-                                        ->where('userhistories.date','>=',$req->start)
-                                        ->where('userhistories.date','<=',$req->end)
+                                        ->where('additems.date','>=',$req->start)
+                                        ->where('additems.date','<=',$req->end)
                                         ->sum('additems.quantity'));
+
+            array_push($countcov,Covenant::join('datastores','datastores.id','=','covenants.datastore_id')
+                                        ->where('datastores.store_id','=',$i)
+                                        ->where('covenants.date','>=',$req->start)
+                                        ->where('covenants.date','<=',$req->end)
+                                        ->sum('covenants.quantity'));
         }
+        array_push($count,$countadd,$countcov);
         return json_encode($count);
     }
 
@@ -107,4 +126,16 @@ class AjaxController extends Controller
         $emps = Employee::all();
         return json_encode($emps);
     }
+
+    public function checkQuantity(Request $req){
+        $item = Additem::find($req->get('itemid'));
+        $oldquantity = $item->quantity;
+        $total = $req->get('total') - $oldquantity + $req->get('quantity');
+        $cov = $req->get('cov');
+        if($total < $cov){
+            return "error";
+        }
+        return "ok";
+    }
+
 }

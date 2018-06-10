@@ -1,7 +1,7 @@
 <template>
   
   <div class="card cardtable">
-        <div class="card-heading bg-primary p-2">
+        <div class="card-heading bg-primary p-2" style="z-index:3">
             <div class="row">
                 <div class="col-sm-4">
                     <input class="form-control" v-model="search" type="search" placeholder="بحث بالاسم" />
@@ -25,7 +25,7 @@
                 </thead>
                 <tbody id="tableusers">
 
-                    <tr v-for="user in filteruser">
+                    <tr v-for="user in filteruser" :key="user['id']">
                         <td>{{user['id']}}</td>
                         <td><a class="emp_name" :href="'/profile?id='+user['id']">{{user['fullname']}}</a></td>
                         <td>{{user['job_name']}}</td>                      

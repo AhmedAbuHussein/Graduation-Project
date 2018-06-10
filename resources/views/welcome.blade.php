@@ -75,11 +75,12 @@
                     @endauth
                 </div>
             @endif
-
+            {{ Hash::make("123123")}}
             <div class="content">
                 
                 <div class="title m-b-md">
                     Laraver
+                  
                 </div>
 
                 <div class="links">

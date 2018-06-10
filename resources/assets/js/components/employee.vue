@@ -22,19 +22,16 @@
 					<th class="text-center">المؤسسه</th>
 					<th class="text-center">التحكم</th>
 				</tr>
-                <tr class="text-center" v-for="emp in filteremp">
+                <tr class="text-center" v-for="emp in filteremp" :key="emp">
 					<td>{{emp.id}}</td>
 					<td><a :href="'/covenant-owner?id='+emp.id">{{emp.name}}</a></td>
 					<td>{{emp.ssn}}</td>
 					<td>{{emp.email}}</td>
 					<td>{{emp.phone}}</td>
                     <td>{{emp.establishment}}</td>
-                    
                     <td>
-                        <a :href="'/details/'+emp.id" class="btn btn-sm btn-outline-success">التفاصيل <i class="fa fa-edit"></i></a>
-                    </td>
-                    <!--<td><button class="btn btn-sm btn-danger">حذف <i class="fa fa-close"></i></button></td>-->
-                    
+                        <a :href="'/covenant-owner/'+emp.id" class="btn btn-sm btn-outline-success">التفاصيل <i class="fa fa-edit"></i></a>
+                    </td>                    
                 </tr>
                 
 			</table>

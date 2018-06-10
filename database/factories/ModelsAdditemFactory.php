@@ -15,6 +15,7 @@ $factory->define(App\Models\Additem::class, function (Faker $faker) {
         },
         'user_id'=>function(){
             return User::all()->random();
-        }
+        },
+        "date" =>$faker->date
     ];
 });

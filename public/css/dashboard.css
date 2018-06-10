@@ -279,3 +279,8 @@
 .card-body .list-unstyled li:last-child {
     border-bottom: none;
 }
+
+.navbar-nav .dropdown-menu {
+    left: auto;
+    right: 0;
+}

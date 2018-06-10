@@ -24,9 +24,9 @@ class CreateEdititemsTable extends Migration
             $table->integer('additem_id')->unsigned()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
 
-            $table->foreign('store_id')->refrences('id')->on('stores')->onUpdate('cascade');
-            $table->foreign('additem_id')->refrences('id')->on('additems')->onUpdate('cascade');
-            $table->foreign('user_id')->refrences('id')->on('users')->onUpdate('cascade');
+            $table->foreign('store_id')->references('id')->on('stores');
+            $table->foreign('additem_id')->references('id')->on('additems');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -1,6 +1,6 @@
 <template>
   
-
+<div>
 <div class="card mt-4 cardtable">
         <div class="card-heading bg-primary p-2 text-right text-white">
             <div class="row pr-4 pl-4">
@@ -25,27 +25,27 @@
                         <th>السعر</th>
                         <th>اذن التوريد</th>
                         <th>الموظف</th>
-                        <th>التحكم</th>
                     </tr>
                 </thead>
                 <tbody>
-                        <tr v-for="item in filters">
+                        <tr v-for="item in filters" :key="item['id']">
                             <td>{{item['id']}}</td>
                             <td>{{item['source']}}</td>
                             <td>{{item['quantity']}}</td>
                             <td>{{item['price']}}</td>
                             <td>{{item['permision']}}</td>
                             <td><a :href="'/profile?id='+item['user_id']">{{item['username']}}</a></td>
-                            <td>
-                                <a :href="'/edit?id='+item['id']" class="btn btn-sm btn-outline-success">تعديل <i class="fa fa-edit"></i></a>
-                            </td>
                         </tr>
                     
                 </tbody>
             </table>
         </div>
     </div>
+    <div class="text-right mt-2">
+        <a :href="'/edit?id='+itemid" class="btn btn-lg btn-outline-primary">تعديل اخر اضافه للمخزن <i class="fa fa-edit"></i></a>
+    </div>
 
+</div>
 
 </template>
 <script>

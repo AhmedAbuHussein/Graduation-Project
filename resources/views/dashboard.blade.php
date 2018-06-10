@@ -90,7 +90,7 @@
 
         </div>
         <div class="content col-lg-10" style="padding-right:0;padding-left:0">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav id="app" class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand d-lg-none" href="{{ url('/dashboard') }}">
                     الرئيسـيه
@@ -115,6 +115,7 @@
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                         @else
+                        <notification></notification>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->fullname }} <span class="caret"></span>
@@ -147,7 +148,7 @@
                 <div class="content">
                     <h2 class="text-center"><bdi>المخـــازن العــامـه</bdi></h2>
                     <hr />
-                    <div id="app" class="content-box">
+                    <div class="content-box">
                      
                         <div class="row text-white">
 
@@ -217,9 +218,12 @@
                             <script>
                                 $(function(){                                    
                                     var adds=[];
-                                    var cov = [10,23,15,8];
+                                    var cov = [];
                                     $.get('/mainchart',function(response){
-                                        adds = JSON.parse(response);
+                                        console.log(response);
+                                        var data = JSON.parse(response);
+                                        adds = data[0];
+                                        cov = data[1];
                                         var config = {
                                             type: 'line',
                                             data: {

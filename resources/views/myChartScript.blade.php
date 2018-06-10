@@ -3,12 +3,16 @@
 /*global $*/
 /*===================================== template data =======================*/
 var arr = [];
-@foreach ($count as $c)
+var arr2 = [];
+@foreach ($count[0] as $c)
     arr.push({{$c}});
+@endforeach
+@foreach ($count[1] as $c)
+    arr2.push({{$c}});
 @endforeach
 var input1 =  ['مخزن المستهلك ','مخزن المستدم ',' مخزن الخامات','مخزن الكهنه'],
     input2 = 'bar',
-	input3 = [ arr,[650,350,700,350]],
+	input3 = [ arr,arr2],
 	input4 = ['المتاح','المستهلك'],
 	input5 = 'canvas-stores-graph',
 	myinput1 = 'doughnut',
@@ -44,7 +48,8 @@ window.onload = function() {
         var endDate = $('#endDate').val();
     
         $.get('/chartAjax',{'start':startdate,'end':endDate},function(res){
-            input3 = [JSON.parse(res),[650,350,700,350]]
+            var data = JSON.parse(res);
+            input3 = [data[0],data[1]];
             $('#'+input5).remove(); // this is my <canvas> element
             $('#canves-parent').append('<canvas id="'+input5+'"><canvas>');
             canvas = document.querySelector('#'+input5);
@@ -60,8 +65,8 @@ window.onload = function() {
         var endDate = $(this).val();
     
         $.get('/chartAjax',{'start':startdate,'end':endDate},function(res){
-           
-            input3 = [JSON.parse(res),[650,350,700,350]]
+            var data = JSON.parse(res);
+            input3 = [data[0],data[1]];
             $('#'+input5).remove(); // this is my <canvas> element
             $('#canves-parent').append('<canvas id="'+input5+'"><canvas>');
             canvas = document.querySelector('#'+input5);

@@ -74,9 +74,10 @@ select.selectbox.form-control {
     font-style: italic;
 }
 
-.myheader .myhead-anlys button {
+.myheader .myhead-anlys a.report2 {
     font-size: 22pt;
     height: 5.5rem;
+    line-height: 5rem;
 }
 
 

@@ -1,15 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Models\Notification;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +29,8 @@ Route::get('/additem','HomeController@additem');
 Route::post('/additem','HomeController@insertitem');
 
 Route::get('/covenant-owner','EmployeeController@index');
+Route::get('/covenant-owner/{id}','EmployeeController@covenantowner');
+Route::get('/pdf','PDFController@index');
 
 
 Route::get('/chartAjax','AjaxController@chartAjax');
@@ -49,6 +42,10 @@ Route::post('/deleteuser/{id}','AjaxController@deleteuser');
 Route::get('/mainchart','AjaxController@mainChart');
 Route::get('/itemsname','AjaxController@itemsname');
 Route::get('/get-emps','AjaxController@employees');
+Route::get('/checkQuantity','AjaxController@checkQuantity');
+Route::post('/progress','ChartController@getprogress');
+Route::post('/notification/get','NotificationController@get');
+Route::get('/owner-covenants','EmployeeController@covenantsData');
 /****************************************************************************************/
 
-Route::get('/test','HomeController@test');
+Route::get('/test','HomeController@quentity');

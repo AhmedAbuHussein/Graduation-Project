@@ -17,7 +17,7 @@
                     <i class="fa fa-user fa-2x fa-fw"></i><span>اصحاب العهد </span>
                 </div>
                 <span class="his-type">
-						<bdi class="number_his-coves">500</bdi>
+						<bdi class="number_his-coves">{{$covcount}}</bdi>
 					</span>
             </div>
             <div class=" myhead-anlys col-lg-3 col-md-6 col-6">
@@ -25,7 +25,7 @@
                     <i class="fa fa-pie-chart fa-2x fa-fw"></i><span>متوسط الصرف</span>
                 </div>
                 <span class="his-type">
-						<bdi class="number_avg">250</bdi>
+						<bdi class="number_avg">{{$avgcov}} %</bdi>
 					</span>
             </div>
             <div class=" myhead-anlys col-lg-3 col-md-6 col-6">
@@ -37,7 +37,7 @@
 					</span>
             </div>
             <div class=" myhead-anlys col-lg-3 col-md-6 col-6">
-                <button class="btn btn-success btn-block btn-sm report2"><i class="fa fa-file-pdf-o text-white"></i> <span>طباعه التقرير</span></button>
+                <a class="btn btn-success btn-block btn-sm report2" href="{{url('pdf')}}"><i class="fa fa-file-pdf-o text-white"></i> <span>طباعه التقرير</span></a>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
 			   	       	   </label>
                             <select id="startDate" class="selectbox form-control"><!--start time-->
                                 @foreach ($date as $d)
-                                    <option {{$date[count($date)] == $d ?'selected':''}} value="{{$d}}">{{$d}}</option>
+                                    <option value="{{$d}}">{{$d}}</option>
                                 @endforeach
 							 </select>
                         </div>
@@ -92,37 +92,8 @@
                 <div class="col-md-4 pb-2">
                     <!--this is progrss bar where describe the stores state-->
                     <h2>نسبة المصروف فى كل مخزن</h2>
-                    <div class="myprogressinfo">
-                        <div class="row">
-                            <div class="col-md-12 col-6 infoStorProg mb-3 text-right">
-                                <!--محزن المستديم-->
-                                <label>مخزن المستديم</label>
-                                <div class="progress dir">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%"><span>مصرف <bdi>80 %</bdi></span></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12  col-6 infoStorProg mb-3 text-right">
-                                <!--مخزن المستهلك-->
-                                <label>مخزن المستهلك</label>
-                                <div class="progress dir">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:40%"><span>مصرف <bdi>40 %</bdi></span></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12  col-6 infoStorProg mb-3 text-right">
-                                <!--مخزن الخامات-->
-                                <label>مخزن الخامات</label>
-                                <div class="progress dir">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:60%"><span>مصرف <bdi>60 %</bdi></span></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12  col-6 infoStorProg text-right">
-                                <!-- محزن الكهنه-->
-                                <label>محزن الكهنه</label>
-                                <div class="progress dir">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:30%"><span>مصرف <bdi>30 %</bdi></span></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="myprogressinfo" >
+                        <progressbar></progressbar>
                         <!--000000000000000-->
                     </div>
 

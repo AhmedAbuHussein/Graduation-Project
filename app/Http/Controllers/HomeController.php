@@ -8,8 +8,10 @@ use App\Models\Store;
 use App\Models\Datastore;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Additem;
-use App\Userhistorie;
-use App\Models\Userhistory;
+use App\Notifications\DatabaseNotification;
+use App\Models\Covenant;
+use App\Models\Edititem;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {
@@ -20,6 +22,7 @@ class HomeController extends Controller
     }
 
     public function index(){
+        
         $adds = Additem::orderBy('id','DESC')->limit(5)->get();
         $datastore = Datastore::all();
         $users = User::all();
@@ -95,6 +98,7 @@ class HomeController extends Controller
            $img = Auth::id()."_". time() . ".".$req->imgfile->getClientOriginalExtension();
         }
         $item = User::find($req->id);
+        $image = $item->img;
         $item->fullname = $fullname;
         $item->username = $username;
         $item->email = $email;
@@ -115,14 +119,15 @@ class HomeController extends Controller
             $item->role = 2;
         }
         $item->store_id = $req->store_id;
-        $item->save();
+        if($item->save()){
 
-        if(isset($img)){
+            if(!is_null($image)){
+                unlink(public_path('uploaded/') . $image);
+            }
             $req->imgfile->move(public_path('/uploaded'),$img);
         }
         return redirect('/users');
     }
-
 
     public function profile(Request $req){
         $user = User::find($req->get('id'));
@@ -135,16 +140,59 @@ class HomeController extends Controller
     }
 
     public function editDatastore(Request $req){
-        $item = Additem::find($req->get('id'));
+        $datastoreid = $req->get('id');
+        if(Auth::user()->store_id != Datastore::find($datastoreid)->store->id){
+            return redirect('/store');
+        }
+
+        $item = Additem::where('datastore_id','=',$datastoreid)->orderBy('id','DESC')->limit(1)->get();
+        $cov = Covenant::where('datastore_id','=',$item[0]->datastore_id)->sum('quantity');
         $arr = array(
             'title'=>'تعديل',
-            'item'=>$item,
+            'item'=>$item[0],
+            'cov'=>$cov,
         );
         return view('editstore',$arr);
     }
 
     public function editDatastoresave(Request $req){
         
+        //TODO:: validate to re request
+
+        if(Auth::user()->store_id == $req->store_id && Auth::user()->role == 1){
+            $item = Additem::find($req->itemid);
+            $oldquantity = $item->quantity;
+            if($oldquantity > $req->quantity){
+                $total = $req->total - $oldquantity + $req->quantity;
+                if($total < $req->cov){
+                    return redirect($_SERVER['HTTP_REFERER']);
+                }
+            }
+
+            $item->source = $req->source;
+            $item->price = $req->price;
+            $item->quantity = $req->quantity;
+            $item->save();
+            $this->updateQuentity($item->datastore_id);
+        }else{
+            //TODO::notifiy her after save data into edititems
+            $newItem = new Edititem();
+            $newItem->source = $req->source;
+            $newItem->permision = $req->permision;
+            $newItem->quantity = $req->quantity;
+            $newItem->price = $req->price;
+            $newItem->store_id = $req->store_id;
+            $newItem->additem_id = $req->itemid;
+            $newItem->user_id = Auth::id();
+            if($newItem->save()){
+               
+                $user = User::where('role','=',1)->where('store_id','=',$newItem->store_id)->get();
+                User::find($user[0]->id)->notify(new DatabaseNotification($newItem));
+                
+            }
+            
+        }
+        return redirect('/store');
     }
 
     public function details(Request $req,$id){
@@ -193,6 +241,7 @@ class HomeController extends Controller
         $new->price = $price;
         $new->permision = $permision;
         $new->user_id = Auth::id();
+        $new->date = now();
 
         if(count($chk)>0){
 
@@ -218,30 +267,26 @@ class HomeController extends Controller
             $item->save();
 
         }
-
-        $itemid = Additem::where('permision','=',$permision)
-                            ->where('user_id','=',Auth::id())
-                            ->where('source','=',$source)
-                            ->orderby('id','DESC')
-                            ->limit(1)->get();
-        $date = new Userhistory();
-        $date->user_id = Auth::id();
-        $date->additem_id = $itemid[0]->id;
-        $date->date = now();
-        $date->save();
-
         return redirect('/store');
     }
 
-    public function test(){
+    public function updateQuentity($id){
+        $data = Datastore::find($id);
+        $data->quantity = Additem::where('datastore_id','=',$data->id)->sum('quantity');
+        $data->save();
+        
+    }
+
+
+    public function quentity(){
+        /*
         $data = Datastore::all();
         foreach($data as $d){
             $d->quantity = Additem::where('datastore_id','=',$d->id)->sum('quantity');
             $d->save();
         }
-        echo 'done';
+        */
     }
-
 
     
 }
