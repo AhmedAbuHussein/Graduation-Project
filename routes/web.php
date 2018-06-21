@@ -27,15 +27,31 @@ Route::get('/details/{id}','HomeController@details');
 
 Route::get('/additem','HomeController@additem');
 Route::post('/additem','HomeController@insertitem');
+Route::get('/checkaddperm','AjaxController@checkaddperm');
+
+
+
+Route::get('/pdf','PDFController@index');
+
+Route::get('/writer','NotificationController@writeredit');
+Route::get('/cancalEdit','NotificationController@cancalEdit');
+Route::get('/saveEdit','NotificationController@saveEdit');
+Route::get('/readed','NotificationController@notReaded');
 
 Route::get('/covenant-owner','EmployeeController@index');
 Route::get('/covenant-owner/{id}','EmployeeController@covenantowner');
-Route::get('/pdf','PDFController@index');
+Route::get('/make-covenant','CovenantController@makeCovenant');
+Route::get('/check-quantity','CovenantController@checkquantity');
+Route::get('/check-permision','CovenantController@checkpermision');
+Route::post('/new-employee','CovenantController@insertEmp');
+Route::post('/new-covenant','CovenantController@insertCov');
+Route::get('/detailscov','CovenantController@detailscov');
 
 
 Route::get('/chartAjax','AjaxController@chartAjax');
 Route::get('/chartdoughnut','AjaxController@chartdoughnut');
 Route::get('/detailsItem','AjaxController@detailsItem');
+
 Route::get('/stores','AjaxController@stores');
 Route::get('/user','AjaxController@users');
 Route::post('/deleteuser/{id}','AjaxController@deleteuser');
@@ -49,3 +65,4 @@ Route::get('/owner-covenants','EmployeeController@covenantsData');
 /****************************************************************************************/
 
 Route::get('/test','HomeController@quentity');
+Route::get('/testt','CovenantController@totalQuantity');

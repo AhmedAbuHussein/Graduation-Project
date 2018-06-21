@@ -23,7 +23,6 @@ class AjaxController extends Controller
                             ->select('datastores.*','stores.name As storename')
                             ->where("store_id","=",Auth::user()->store_id)->get();
         }
-
         $stores = Store::all(); 
         $arr = array(
             'data'=>$data,
@@ -125,6 +124,16 @@ class AjaxController extends Controller
     public function employees(Request $req){
         $emps = Employee::all();
         return json_encode($emps);
+    }
+
+
+    public function checkaddperm(Request $req){
+        $perm = $req->get('per');
+        $chck =Additem::where('permision','=',$perm)->get();
+        if(count($chck) == 0){
+            return 'ok';
+        }
+        return 'error';
     }
 
     public function checkQuantity(Request $req){

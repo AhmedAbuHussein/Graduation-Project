@@ -2,7 +2,7 @@
 
     <div class="card cardtable">
 
-        <div class="card-heading p-2 bg-primary form-parent">
+        <div class="card-heading p-2 bg-info form-parent">
         
             <div class="row">
                 <div class="col-sm-4">

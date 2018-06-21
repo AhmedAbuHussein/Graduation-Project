@@ -53,7 +53,8 @@ class ChartController extends Controller
         for($i=1;$i<=count(Store::all());$i++){
             $avg =round((Covenant::join('datastores','datastores.id','=','covenants.datastore_id')
                         ->where('datastores.store_id','=',$i)
-                        ->sum('covenants.quantity') / Datastore::where('store_id','=',$i)->sum('quantity'))*100,3); 
+                        ->sum('covenants.quantity') / Additem::join('datastores','datastores.id','=','additems.datastore_id')
+                        ->where('datastores.store_id','=',$i)->sum('additems.quantity'))*100,1); 
             array_push($prog,$avg);
         }
         return $prog;

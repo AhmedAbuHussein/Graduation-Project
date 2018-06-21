@@ -190,6 +190,10 @@ body div.assistant-graphs>div>div>div>div.col-xs-12.mygraphs-tor>div.theinfo {
     font-size: 16pt;
 }
 
+bdi {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .lastone .theinfo .testing {
     text-align: center;
 }
@@ -209,7 +213,7 @@ body div.assistant-graphs>div>div>div>div.col-xs-12.mygraphs-tor>div.theinfo {
 }
 
 .assistant-graphs .mygraphs-tor span {
-    font-size: 16pt !important;
+    font-size: 12pt !important;
 }
 
 

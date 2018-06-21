@@ -12,12 +12,12 @@ use App\Notifications\DatabaseNotification;
 use App\Models\Covenant;
 use App\Models\Edititem;
 use App\Models\Notification;
+use StreamLab\StreamLabProvider\Facades\StreamLabFacades;
 
 class HomeController extends Controller
 {
     
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
     }
 
@@ -56,9 +56,6 @@ class HomeController extends Controller
         return view('store',$arr);
     }
 
-    public function covenant(){
-        echo "Covenant";
-    }
     public function modifyuser(Request $req){
         $stors = Store::all();
         if(Auth::user()->role == 0){
@@ -81,7 +78,6 @@ class HomeController extends Controller
             'username'=>'required',
             'email'=>'required',
             'role'=>'required',
-            'store_id'=>'required',
             'phone'=>'required',
             'address'=>'required'
         ]);
@@ -158,7 +154,6 @@ class HomeController extends Controller
     public function editDatastoresave(Request $req){
         
         //TODO:: validate to re request
-
         if(Auth::user()->store_id == $req->store_id && Auth::user()->role == 1){
             $item = Additem::find($req->itemid);
             $oldquantity = $item->quantity;
@@ -188,7 +183,15 @@ class HomeController extends Controller
                
                 $user = User::where('role','=',1)->where('store_id','=',$newItem->store_id)->get();
                 User::find($user[0]->id)->notify(new DatabaseNotification($newItem));
-                
+                $notifyid = Notification::where('notifiable_id','=',$user[0]->id)->orderBy('created_at','DESC')->limit(1)->get();
+                $data = [
+                    "store"=>$newItem->store_id,
+                    'itemid'=>$newItem->id,
+                    'permision'=>$newItem->permision,
+                    'user'=>$user[0]->id,
+                    'notify'=>$notifyid[0]->id,    
+                ];
+                StreamLabFacades::pushMessage('FCINotification','DatabaseNotification',$data);
             }
             
         }
@@ -228,8 +231,8 @@ class HomeController extends Controller
 
         $product = filter_var($req->product,FILTER_SANITIZE_STRING);
         $source = filter_var($req->source,FILTER_SANITIZE_STRING);
-        $quantity = filter_var($req->quantity,FILTER_SANITIZE_NUMBER_INT);
-        $price = filter_var($req->price,FILTER_SANITIZE_NUMBER_FLOAT);
+        $quantity = filter_var($req->quantity,FILTER_SANITIZE_STRING);
+        $price = filter_var($req->price,FILTER_SANITIZE_STRING);
         $permision = filter_var($req->permision,FILTER_SANITIZE_STRING);
         $store_id = filter_var($req->store_id,FILTER_SANITIZE_NUMBER_INT);
 
@@ -248,10 +251,7 @@ class HomeController extends Controller
             $new->datastore_id = $chk[0]->id;
             $new->save(); 
 
-            $count = Additem::where('datastore_id','=',$chk[0]->id)->sum('quantity');
-            $item = Datastore::find($chk[0]->id);
-            $item->quantity = $count;
-            $item->save();
+            $this->updateQuentity($chk[0]->id);
         }else{
            $new = new Datastore();
            $new->name = $product;
@@ -272,7 +272,7 @@ class HomeController extends Controller
 
     public function updateQuentity($id){
         $data = Datastore::find($id);
-        $data->quantity = Additem::where('datastore_id','=',$data->id)->sum('quantity');
+        $data->quantity = Additem::where('datastore_id','=',$data->id)->sum('quantity') - Covenant::where('datastore_id','=',$data->id)->sum('quantity');
         $data->save();
         
     }
@@ -286,6 +286,8 @@ class HomeController extends Controller
             $d->save();
         }
         */
+
+      
     }
 
     

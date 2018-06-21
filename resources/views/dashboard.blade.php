@@ -14,6 +14,9 @@
     <link href="/res/css/font-awesome.min.css" rel="stylesheet">
     <link href="/res/css/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/dashboard.css" />
+
+    <script src="/res/js/jquery.js"></script>
+<script src="/StreamLab/StreamLab.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -56,15 +59,15 @@
                     <li class="down-menu"><bdi>{{$store->name}}</bdi> <i class="fa fa-chevron-left"></i> </li>
                     <ul class="open">
                         <li><a href="/additem">اضافه</a></li>
-                        <li><a href="makecov">توزيع</a></li>
-                        <li><a href="/storechart">احصائيات</a></li>
+                        <li><a href="/make-covenant">توزيع</a></li>
+                        <li><a href="/chart">احصائيات</a></li>
                     </ul>
                     @elseif(Auth::user()->store_id == $store->id)
                     <li class="down-menu"><bdi>{{$store->name}}</bdi> <i class="fa fa-chevron-left"></i> </li>
                     <ul class="open">
                         <li><a href="/additem">اضافه</a></li>
-                        <li><a href="/makecov">توزيع</a></li>
-                        <li><a href="/storechart">احصائيات</a></li>
+                        <li><a href="/make-covenant">توزيع</a></li>
+                        <li><a href="/chart">احصائيات</a></li>
                     </ul>
                         @break
                     @endif
@@ -115,20 +118,20 @@
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                         @else
-                        <notification></notification>
+                        <notification :role="{{Auth::user()->role}}"></notification>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->fullname }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:right">
                                     <a class="dropdown-item" href="/profile?id={{Auth::id()}}">الملف الشخصي</a>
                                     <a class="dropdown-item" href="/modify?id={{Auth::id()}}">تعديل</a>
                                     <i class="divider"></i>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        تسجيل الخروج
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -293,8 +296,10 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <script src="/res/js/jquery.js"></script>
     <script src="/res/js/jquery-ui.min.js"></script>
+
     <script>
-        
+
+
     $('#aside-ul>li').click(function() {
         if ($(this).hasClass('selected')) {
             $(this).next('ul').slideUp(300);
@@ -328,6 +333,7 @@
 
     });
     </script>
+
 </body>
 </html>
 

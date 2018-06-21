@@ -17,8 +17,5 @@ class Additem extends Model
         return $this->belongsTo(\App\Models\Datastore::class);
     }
 
-    public function userhistories()
-    {
-        return $this->hasMany(\App\Models\Userhistory::class);
-    }
+
 }

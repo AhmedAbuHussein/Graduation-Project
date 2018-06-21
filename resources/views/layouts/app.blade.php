@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="AR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,11 +15,20 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="/res/css/jquery-ui.min.css" rel="stylesheet">
     <link href="/res/css/font-awesome.min.css" rel="stylesheet">
+    <script src="/res/js/jquery.js"></script>
+    <script src="/StreamLab/StreamLab.js"></script>
     <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
         #navimg{
             width: 2rem;
             height: 2rem;
             border-radius: 100%;
+        }
+        .dropdown-menu.text-right.notificationtemplate.show {
+            max-height: 22rem;
+            overflow: auto;
         }
     </style>
     @yield('style')
@@ -55,7 +64,7 @@
                             @guest
                                 <li><a class="nav-link" href="{{ route('login') }}">{{ __('تسجيل دخول') }}</a></li>
                             @else
-                                <notification></notification>
+                                <notification :role="{{Auth::user()->role}}"></notification>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         <img id="navimg" src="{{isset(Auth::user()->img)?'/uploaded/' . Auth::user()->img:'/img/unknown.png'}}"> {{ Auth::user()->fullname }} <span class="caret"></span>

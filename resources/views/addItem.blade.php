@@ -13,14 +13,19 @@
 @section('content')
 
 <div class="container">
-    <div class="card mt-2 ml-auto mr-auto d-flex">
+    <div class="card mt-5 ml-auto mr-auto d-flex">
         <div class="card-heading p-2 text-right bg-info text-white font-weight-bold">اضافه عنصر جديد</div>
         <div class="card-body pb-0">
-           <form action="/additem" method="POST" class="form-horizontal text-right" style="direction:rtl;">
+           <form id="addForm" action="/additem" method="POST" class="form-horizontal text-right" style="direction:rtl;">
                 @csrf
                 <div class="form-group row pl-3 pr-3">
                     <label for="product" class="control-label col-md-2 order-0">اسم المنتج</label>
                     <input id="product" name="product" type="text" class="form-control order-1 col-md-10" required placeholder="اسم المنتج">
+                </div>
+
+                <div class="form-group row pl-3 pr-3">
+                    <label  for="permision" class="control-label col-md-2 order-0">اذن التوريد</label>
+                    <input id="permision" name="permision" type="text" class="form-control order-1 col-md-10" required placeholder="اذن التوريد">
                 </div>
 
                 <div class="form-group row pl-3 pr-3">
@@ -30,19 +35,13 @@
 
                 <div class="form-group row pl-3 pr-3">
                     <label for="quantity" class="control-label col-md-2 order-0">الكميه</label>
-                    <input id="quantity" name="quantity" type="text" class="form-control order-1 col-md-10" required placeholder="الكميه">
+                    <input id="quantity" name="quantity" type="number" step="0.01" min="1" class="form-control order-1 col-md-10" required placeholder="الكميه">
                 </div>
                 
                 <div class="form-group row pl-3 pr-3">
                     <label for="price" class="control-label col-md-2 order-0">سعر القطعه</label>
-                    <input id="price" name="price" type="text" class="form-control order-1 col-md-10" required placeholder="سعر القطعه ">
+                    <input id="price" name="price" type="number" step="0.01" min="1" class="form-control order-1 col-md-10" required placeholder="سعر القطعه ">
                 </div>
-
-                <div class="form-group row pl-3 pr-3">
-                    <label  for="permision" class="control-label col-md-2 order-0">اذن التوريد</label>
-                    <input id="permision" name="permision" type="text" class="form-control order-1 col-md-10" required placeholder="اذن التوريد">
-                </div>
-
                 
                 <div class="form-group row pl-3 pr-3">
                     <label  for="store_id" class="control-label col-md-2 order-0">المخزن</label>
@@ -65,8 +64,6 @@
 
                     @endif
                 </div>
-                
-
                 <div class="form-group row justify-content-end pl-3 pr-3">
                     
                     <button  type="submit" class="btn btn-outline-primary  col-md-10">حفظ</button>
@@ -92,7 +89,7 @@
 @section('script')
 
 <script>
-    
+    var chckperm = false;
 $(function(){
     var id = $("#store_id").val();
     $.get('/itemsname?id='+id,function(res){
@@ -104,6 +101,7 @@ $(function(){
             source: availableTags
         });
     });
+
     $("#store_id").change(function(){
         id = $(this).val();
         $.get('/itemsname?id='+id,function(res){
@@ -117,7 +115,29 @@ $(function(){
         });
 
     });
+
+    $('#permision').blur(function(){
+        per = $(this).val();
+        app = $(this);
+        $.get('/checkaddperm?per='+per,function(res){
+            if(res == 'error'){
+                chckperm = false;
+                app.css('border','1px solid red').attr('title','هذا الاذن تم استخدامه من قبل');
+                
+            }else{
+                chckperm = true;
+                app.css('border','1px solid green').attr('title','');
+            }
+        });
+    });
    
+    $('#addForm').submit(function(e){
+        if(!chckperm){
+            e.preventDefault();
+        }
+    });
+
+
 });
 </script>
 

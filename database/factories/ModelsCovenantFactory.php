@@ -5,7 +5,8 @@ use App\Models\Employee;
 
 $factory->define(App\Models\Covenant::class, function (Faker $faker) {
     return [
-        'quantity'=>$faker->numberbetween(10,100),
+        'quantity'=>$faker->numberbetween(10,40),
+        'permision'=>$faker->numberbetween(1000,999999) . str_random(3),
         'employee_id'=>function(){
             return Employee::all()->random();
         },

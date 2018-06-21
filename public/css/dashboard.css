@@ -24,6 +24,11 @@
     background: #e1e0e0;
 }
 
+.dropdown-menu.text-right.notificationtemplate.show {
+    max-height: 22rem;
+    overflow: auto;
+}
+
 
 /*Start Aside Edit*/
 

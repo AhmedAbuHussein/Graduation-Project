@@ -1,10 +1,10 @@
 <template>
   
   <div class="card cardtable">
-        <div class="card-heading bg-primary p-2" style="z-index:3">
+        <div class="card-heading bg-info p-2" style="z-index:3">
             <div class="row">
                 <div class="col-sm-4">
-                    <input class="form-control" v-model="search" type="search" placeholder="بحث بالاسم" />
+                    <input class="form-control" v-model="search" type="search" style="direction:rtl" placeholder="بحث بالاسم" />
                 </div>
             </div>
             

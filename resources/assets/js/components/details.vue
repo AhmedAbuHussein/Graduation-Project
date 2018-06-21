@@ -2,20 +2,20 @@
   
 <div>
 <div class="card mt-4 cardtable">
-        <div class="card-heading bg-primary p-2 text-right text-white">
+        <div class="card-heading bg-info p-2 text-right text-white">
             <div class="row pr-4 pl-4">
                 <div class="col-sm-6">
                     <input style="direction:rtl;" type="search" v-model="search" placeholder="بحث بالمصدر" class="form-control form-control-sm">
                 </div>
                 
                 <div class="col-sm-6">
-                    <bdi>الاضافات التي تمت علي <span class="font-weight-bold">{{itemname}}</span></bdi></div>
+                    <a :href="'/edit?id='+itemid" class="btn btn-sm btn-success">تعديل اخر اضافه <i class="fa fa-edit"></i></a>
+                     <bdi>الاضافات التي تمت علي [ <span class="font-weight-bold">{{itemname}}</span> ]</bdi>
                 </div>
-                
-
             </div>
+        </div>
             
-        <div class="card-body pt-0 pb-0">
+        <div class="card-body py-0">
             <table class="table table-striped" style="direction:rtl">
                 <thead>
                     <tr>
@@ -40,9 +40,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="text-right mt-2">
-        <a :href="'/edit?id='+itemid" class="btn btn-lg btn-outline-primary">تعديل اخر اضافه للمخزن <i class="fa fa-edit"></i></a>
     </div>
 
 </div>
@@ -83,3 +80,13 @@ export default {
     }
 }
 </script>
+<style>
+    .card-heading{
+        z-index: 1;
+    }
+    .card-body{
+        max-height: 200px;
+        overflow: auto;
+        z-index: 2;
+    }
+</style>

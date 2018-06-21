@@ -16,6 +16,7 @@ class CreateCovenantsTable extends Migration
         Schema::create('covenants', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('quantity');
+            $table->string('permision')->unique();
             $table->integer('employee_id')->unsigned();
             $table->integer('datastore_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();

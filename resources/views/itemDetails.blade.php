@@ -5,7 +5,8 @@
 @section('content')
 
 <div class="container">
-    <itemdetails itemid="{{$itemid}}"></itemdetails>
+    <itemadd itemid="{{$itemid}}"></itemadd>
+    <itemcov itemid="{{$itemid}}"></itemcov>
 </div>
 
 @endsection

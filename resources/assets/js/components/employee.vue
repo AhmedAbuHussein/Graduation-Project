@@ -1,7 +1,7 @@
 <template>
 
 <div class="card">
-		<div class="card-heading bg-primary p-2">
+		<div class="card-heading bg-info p-2">
 			<div class="row">
                 <div class="col-sm-6">
                     <input class="form-control text-right" style="direction:rtl;" v-model="search" type="search" placeholder="بحث باسم الصنف" />                </div>

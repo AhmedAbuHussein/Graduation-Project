@@ -9,12 +9,12 @@
     <div>
         <stores :user="{{Auth::user()}}"></stores>
     </div>
-
-        <div class="text-right mt-3 text-center">
-                <a class="btn btn-outline-success add" href="/additem">اضافه <i class="fa fa-plus"></i></a>
-                <a class="btn btn-outline-info add" href="">صرف <i class="fa fa-shopping-bag"></i></a>
-            </div>
-        
+    @if(Auth::user()->role != 0)
+    <div class="text-right mt-3 text-center">
+        <a class="btn btn-outline-success add" href="/additem">اضافه <i class="fa fa-plus"></i></a>
+        <a class="btn btn-outline-info add" href="/make-covenant">صرف <i class="fa fa-shopping-bag"></i></a>
     </div>
+    @endif
+</div>
 
 @endsection
