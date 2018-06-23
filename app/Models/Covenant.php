@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Employee;
 
 class Covenant extends Model
 {
@@ -13,7 +12,7 @@ class Covenant extends Model
     ];
 
     public function employee(){
-        return $this->belongsTo('Employee');
+        return $this->belongsTo(\App\Models\Employee::class);
     }
 
     public function user(){

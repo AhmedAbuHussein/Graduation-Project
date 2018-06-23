@@ -18,7 +18,8 @@ Route::get('/chart', 'ChartController@chart')->name('chart');
 Route::get('/modify','HomeController@modifyuser');
 Route::post('/modify','HomeController@modifyusersave');
 
-Route::get('/profile','HomeController@profile');
+Route::get('/profile/{id}','ProfileController@profile');
+Route::get('/employee/{id}','ProfileController@employee');
 
 Route::get('/edit','HomeController@editDatastore');
 Route::Post('/edit','HomeController@editDatastoresave');
@@ -40,6 +41,7 @@ Route::get('/readed','NotificationController@notReaded');
 
 Route::get('/covenant-owner','EmployeeController@index');
 Route::get('/covenant-owner/{id}','EmployeeController@covenantowner');
+
 Route::get('/make-covenant','CovenantController@makeCovenant');
 Route::get('/check-quantity','CovenantController@checkquantity');
 Route::get('/check-permision','CovenantController@checkpermision');

@@ -77,7 +77,7 @@
                 <div class="aside-footer">
                     <ul class="list-unstyled">
                         <li><a href="#" class="btn" data-toggle="modal" data-target="#clock"><i class="fa fa-envelope-o fa-2x"></i></a></li>
-                        <li><a href="/profile?id={{Auth::id()}}" class="btn"><i class="fa fa-user"></i></a></li>
+                        <li><a href="/profile/{{Auth::id()}}" class="btn"><i class="fa fa-user"></i></a></li>
                         <li><a href="{{ route('logout') }}" class="btn" 
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i></a></li>
@@ -125,7 +125,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:right">
-                                    <a class="dropdown-item" href="/profile?id={{Auth::id()}}">الملف الشخصي</a>
+                                    <a class="dropdown-item" href="/profile/{{Auth::id()}}">الملف الشخصي</a>
                                     <a class="dropdown-item" href="/modify?id={{Auth::id()}}">تعديل</a>
                                     <i class="divider"></i>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

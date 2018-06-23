@@ -22,6 +22,7 @@ class CreateAdditemsTable extends Migration
 
             $table->integer('datastore_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
+                
             $table->foreign('datastore_id')
                     ->references('id')
                     ->on('datastores')

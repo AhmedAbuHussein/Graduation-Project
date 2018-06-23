@@ -27,7 +27,7 @@
 
                     <tr v-for="user in filteruser" :key="user['id']">
                         <td>{{user['id']}}</td>
-                        <td><a class="emp_name" :href="'/profile?id='+user['id']">{{user['fullname']}}</a></td>
+                        <td><a class="emp_name" :href="'/profile/'+user['id']">{{user['fullname']}}</a></td>
                         <td>{{user['job_name']}}</td>                      
                         <td>{{user['storename']}}</td>
                         <td>{{user['email']}}</td>

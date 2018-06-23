@@ -16,7 +16,7 @@ class CreateDatastoresTable extends Migration
         Schema::create('datastores', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('quantity');
+            $table->float('quantity');
             $table->integer('store_id')->unsigned();
             $table->foreign('store_id')->references('id')->on('stores');
         });

@@ -71,7 +71,7 @@
                                     </a>
     
                                     <div class="dropdown-menu text-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/profile?id={{Auth::id()}}">الملف الشخصي</a>
+                                        <a class="dropdown-item" href="/profile/{{Auth::id()}}">الملف الشخصي</a>
                                         <a class="dropdown-item" href="/modify?id={{Auth::id()}}">تعديل</a>
                                         
                                         <a class="dropdown-item" style="border-top:0.05rem solid #f3f3f3;" href="{{ route('logout') }}"

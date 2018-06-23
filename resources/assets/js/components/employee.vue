@@ -24,7 +24,7 @@
 				</tr>
                 <tr class="text-center" v-for="emp in filteremp" :key="emp">
 					<td>{{emp.id}}</td>
-					<td><a :href="'/covenant-owner?id='+emp.id">{{emp.name}}</a></td>
+					<td><a :href="'/employee/'+emp.id">{{emp.name}}</a></td>
 					<td>{{emp.ssn}}</td>
 					<td>{{emp.email}}</td>
 					<td>{{emp.phone}}</td>

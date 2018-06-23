@@ -116,24 +116,19 @@ class HomeController extends Controller
         }
         $item->store_id = $req->store_id;
         if($item->save()){
-
-            if(!is_null($image)){
+            
+            if(!is_null($image) && isset($img)){
                 unlink(public_path('uploaded/') . $image);
             }
-            $req->imgfile->move(public_path('/uploaded'),$img);
+            if(isset($img)){
+
+                $req->imgfile->move(public_path('/uploaded'),$img);
+            }
         }
         return redirect('/users');
     }
 
-    public function profile(Request $req){
-        $user = User::find($req->get('id'));
-        $arr = array(
-            'title'=>'الملف الشخصي',
-            'user'=>$user,
-        );
 
-        return view('profile',$arr);
-    }
 
     public function editDatastore(Request $req){
         $datastoreid = $req->get('id');
@@ -279,13 +274,21 @@ class HomeController extends Controller
 
 
     public function quentity(){
-        /*
-        $data = Datastore::all();
+        $flag = true;
+        $data = Covenant::all();
         foreach($data as $d){
-            $d->quantity = Additem::where('datastore_id','=',$d->id)->sum('quantity');
+            if($d->datastore->store->id == 3){
+                if($flag){
+                    $d->user_id = 6;
+                    $flag = false;
+                }else{
+                    $d->user_id = 7;
+                    $flag = true;
+                }
+            }
             $d->save();
         }
-        */
+        
 
       
     }

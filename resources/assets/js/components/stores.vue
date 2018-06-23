@@ -22,7 +22,7 @@
                         v-model="store"
                     >
                         <option value="0">الكل</option>
-                        <option v-for="store in stores" :value="store['id']" v-text="store['name']"></option>
+                        <option v-for="store in stores" :key="store.id" :value="store['id']" v-text="store['name']"></option>
                     </select>
 
                      <select 
@@ -32,7 +32,7 @@
                         disabled
                         name="store"
                     >
-                        <option v-for="store in stores" :value="store['id']" :selected="user['store_id'] == store['id']?'selected':''" v-text="store['name']"></option>
+                        <option v-for="store in stores" :key="store.id" :value="store['id']" :selected="user['store_id'] == store['id']?'selected':''" v-text="store['name']"></option>
                     </select>
                     
                 </div>
