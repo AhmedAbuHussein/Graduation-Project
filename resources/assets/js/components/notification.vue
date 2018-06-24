@@ -36,7 +36,7 @@
             if(slh.getSource() == "messages"){
                 message = slh.getMessage();
                 if(!message.msg){
-                    $('#noti').prepend("<a class='dropdown-item notificationvue' href='writer?notify="+message.notify+"&item="+message.itemid+"'>تم التعديل علي مخزن <b>{{userstore}}</b> بواسطه كاتب الشطب لمراجه وحفظ التغير يرجي الدخول هنا <i>"+new Date("yyyy-mm-dd")+"</i></a>");
+                    $('#noti').prepend("<a class='dropdown-item notificationvue' href='writer?notify="+message.notify+"&item="+message.itemid+"'>تم التعديل علي المخزن <b>الان</b> بواسطه كاتب الشطب لمراجه وحفظ التغير يرجي الدخول هنا <i>"+new Date("yyyy-mm-dd")+"</i></a>");
                 }else{
                     $('#notiwriter').prepend("<a class='dropdown-item notificationvue' href='readed?notify='"+message.notify+">تم حفظ التعديل الذي قمت به من قبل امين المخزن</a>");
                 }

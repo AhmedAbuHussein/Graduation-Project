@@ -8,6 +8,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('send-sms','ProfileController@sendsms');
+Route::post('employee','EmployeeController@show');
 /*************************** Dashboard ***************************/ 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/users', 'HomeController@users')->name('users');

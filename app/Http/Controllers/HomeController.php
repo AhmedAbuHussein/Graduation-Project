@@ -32,7 +32,7 @@ class HomeController extends Controller
             'title' =>'الرئيسيه',
             'adds'=>$adds,
             'datastore'=>count($datastore),
-            'users'=>count($users),
+            'users'=>$users,
             'stores'=>$stores,
         ) ;
         return view('dashboard',$arr);

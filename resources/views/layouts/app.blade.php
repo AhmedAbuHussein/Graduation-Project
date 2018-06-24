@@ -18,6 +18,7 @@
     <script src="/res/js/jquery.js"></script>
     <script src="/StreamLab/StreamLab.js"></script>
     <style>
+        
         *{
             font-family: Arial, Helvetica, sans-serif;
         }

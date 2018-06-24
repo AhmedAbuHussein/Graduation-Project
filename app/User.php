@@ -38,6 +38,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function routeNotificationForNexmo(){
+        return $this->phone;
+    }
+
     public function store()
     {
         return $this->belongsTo(\App\Models\Store::class);

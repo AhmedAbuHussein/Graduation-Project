@@ -28,16 +28,23 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <input type="text" style="direction:rtl;" class="form-control" placeholder="رقم الهاتف">
-                            </div>
-                            <div class="form-group">
-                                <textarea rows="10" style="direction:rtl; resize:none;" class="form-control" placeholder="رسالتك"></textarea>    
-                            </div>                            
-    
+                            <form id="sms" action="/send-sms" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <select class="form-control" name="user_id" required>
+                                        <option value="">اختار الموظف</option>
+                                        @foreach ($users as $user)
+                                        <option value="{{$user->id}}">{{$user->fullname}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="msg" rows="10" style="direction:rtl; resize:none;" class="form-control" placeholder="رسالتك"></textarea>    
+                                </div>                            
+                            </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-primary">ارسال</button>
+                            <button form="sms" type="submit" type="button" class="btn btn-outline-primary">ارسال</button>
                         </div>
                     </div>
                 </div>
@@ -184,7 +191,7 @@
                                     <div class="card bg-warning">
                                         <div class="card-body text-right">
                                             <i class="fa fa-user-plus pull display-3"></i>
-                                            <span class="text-right display-3">{{$users}}</span>
+                                            <span class="text-right display-3">{{count($users)}}</span>
                                             <h3 class="text-center">المستخدمين</h3>
                                         </div>
                                     </div>

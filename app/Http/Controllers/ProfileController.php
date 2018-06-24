@@ -8,6 +8,7 @@ use App\User;
 use App\Models\Covenant;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
+use App\Models\Notification;
 
 class ProfileController extends Controller
 {
@@ -43,5 +44,11 @@ class ProfileController extends Controller
         return view('employees',$arr);
     }
 
+    public function sendsms(Request $req){
+        $user = User::find($req->user_id);
+        $msg = $req->msg;
+        $user->notify(new \App\Notifications\SMSNotification($msg));
+        return redirect('dashboard'); 
+    }
 
 }

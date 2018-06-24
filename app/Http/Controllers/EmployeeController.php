@@ -16,6 +16,16 @@ class EmployeeController extends Controller
         return view('employee',$arr);
     }
 
+    public function show(Request $req){
+        $ssn = $req->ssn;
+        $emp = Employee::where('ssn','=',$ssn)->get();
+        if(count($emp) > 0){
+            return redirect('/employee/'.$emp[0]->id);
+        }else{
+            return redirect('/');
+        }
+    }
+
     public function covenantowner(Request $req,$id){
         $owner= Employee::find($id);
         $arr = array(

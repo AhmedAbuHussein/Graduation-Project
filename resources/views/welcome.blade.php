@@ -5,92 +5,105 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>المخازن العامه</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      <style>
+          body{
+              background: url('/img/home.jpg') no-repeat;
+              background-size: cover;
+          }
+          
+          .cover::before{
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 0;
+          }
+          body .container{
+              position: relative;
+              z-index: 1;
+          }
+          .logo{
+              width: 18rem;
+              height: 18rem;
+              overflow: hidden;
+              border-radius: 100%;
+              padding: 0.1rem;
+              border: 1px solid #f3f3f3;
+              margin: auto;
+          }
+          .logo img{
+              border-radius: 100%;
+              width: 100%;
+              height: 100%;
+          }
+          .modal-backdrop{
+              z-index: 0 !important;
+          }
+      </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/dashboard') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                    @endauth
-                </div>
-            @endif
-            {{ Hash::make("123123")}}
-            <div class="content">
-                
-                <div class="title m-b-md">
-                    Laraver
-                  
+        <div class="cover"></div>
+        <div class="container">
+            <div class="content pt-5">
+                <h1 class="display-4 pt-5  text-center text-white">الاداره العامه للعهد والمخازن</h1>
+                <div class="logo">
+                    <img src="/img/logo.jpg" title="logo" />
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="bottons text-center mt-4">
+                    @if (Route::has('login'))
+                    @auth
+                        <a class="btn btn-outline-success" href="{{ url('/dashboard') }}">لوحه التحكم</a>
+                    @else
+                        <a class="btn btn-outline-success" href="{{ route('login') }}">تسجيل الدخول</a>
+                    @endauth
+
+                    @endif
+                    <a class="btn btn-outline-danger" href="#" data-toggle="modal" data-target="#modalCove">اصحاب العهد</a>
                 </div>
             </div>
+
+            <div class="modal fade" id="modalCove" tabindex="-1" role="dialog" aria-labelledby="modalCove">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title text-center" id="myModalLabel">اصحاب العهد</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="covenant" action="/employee" method="POST">
+                                @csrf
+                               
+                                <div class="form-group">
+                                    <input name="ssn" autocomplete="off" style="direction:rtl;" class="form-control" placeholder="الرقم القومي"> 
+                                </div>                            
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button form="covenant" type="submit" type="button" class="btn btn-outline-primary">ارسال</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                
         </div>
+        
+        <script src="{{ asset('js/app.js') }}" ></script>
+        <script src="/res/js/jquery.js"></script>
+        <script src="/res/js/jquery-ui.min.js"></script>
+        <script>
+            $('body,html').height($(window).height());       
+         </script>
     </body>
 </html>
