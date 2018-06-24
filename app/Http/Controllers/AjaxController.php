@@ -65,6 +65,7 @@ class AjaxController extends Controller
         $arr=array();
         $arr1 = array();
         $arr2 = array();
+        $arr3 = array();
         for($i=1;$i<=count(Store::all());$i++){
             $item = Additem::join('datastores','datastores.id','=','additems.datastore_id')
                                 ->where('datastores.store_id','=',$i)
@@ -77,8 +78,10 @@ class AjaxController extends Controller
             
             array_push($arr2,$item);
 
+            array_push($arr3,Store::find($i)->name);
+
         }
-        array_push($arr,$arr1,$arr2);
+        array_push($arr,$arr1,$arr2,$arr3);
         
       
         return json_encode($arr);
@@ -93,7 +96,7 @@ class AjaxController extends Controller
         $count = array();
         $countadd = array();
         $countcov = array();
-        $stores = \App\Models\Store::all();
+        $stores = Store::all();
         for($i=1;$i<=count($stores);$i++){
             array_push($countadd,Additem::join('datastores','datastores.id','=','additems.datastore_id')
                                         
@@ -107,6 +110,7 @@ class AjaxController extends Controller
                                         ->where('covenants.date','>=',$req->start)
                                         ->where('covenants.date','<=',$req->end)
                                         ->sum('covenants.quantity'));
+           
         }
         array_push($count,$countadd,$countcov);
         return json_encode($count);
@@ -114,7 +118,7 @@ class AjaxController extends Controller
 
     public function chartdoughnut(Request $req){
         $items = array();
-        $stores = \App\Models\Store::all();
+        $stores = Store::all();
         for($i=1;$i<=count($stores);$i++){
             array_push($items,count(Datastore::where('store_id','=',$i)->get()));
         }
@@ -141,7 +145,7 @@ class AjaxController extends Controller
         $oldquantity = $item->quantity;
         $total = $req->get('total') - $oldquantity + $req->get('quantity');
         $cov = $req->get('cov');
-        if($total < $cov){
+        if($total < 0){
             return "error";
         }
         return "ok";

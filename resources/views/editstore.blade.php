@@ -27,11 +27,11 @@
                
                 <div class="form-group row">
                     <label class="control-label col-md-3">الكميه المورده</label>
-                    <input type="text" id="quantity" name="quantity" value="{{$item->quantity}}"  class="form-control col-md-9" placeholder="الكميه المورده"> 
+                    <input type="number" min="0.5" step="0.01" id="quantity" name="quantity" value="{{$item->quantity}}"  class="form-control col-md-9" placeholder="الكميه المورده"> 
                 </div>
                 <div class="form-group row">
                         <label class="control-label col-md-3">سعر القطعه</label>
-                        <input type="text" name="price" value="{{$item->price}}"  class="form-control col-md-9" placeholder="سعر القطعه"> 
+                        <input type="number" min="0.01" step="0.01" name="price" value="{{$item->price}}"  class="form-control col-md-9" placeholder="سعر القطعه"> 
                     </div>
                 <div class="form-group row">
                     <label class="control-label col-md-3">الكميه الكليه بالمخزن</label>
@@ -70,6 +70,25 @@
 
 @section('script')
 <script>
+    msg = '';
+    icon = '';
+    if(window.location.hash == '#edit-save-owner'){
+        msg = 'تم الحفظ بنجاح';
+        icon = 'success';
+    }else if(window.location.hash == '#edit-save'){
+        msg = 'تم الحفظ وفي انتظار موافقه امين المخزن';
+        icon = 'success';
+    }else if(window.location.hash == '#edit-not-save'){
+        msg = "حدث خطأ اثناء الحفظ!!";
+        icon = 'error';
+    }
+    if(msg != ""){
+        swal({
+            'text': msg,
+            'icon':icon,
+        });
+    }
+
     var check;
 $(function(){
 

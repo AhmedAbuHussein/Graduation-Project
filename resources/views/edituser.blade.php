@@ -141,7 +141,7 @@
                     <div class="col-md-9 order-0">
                         <input 
                             id="phone" 
-                            type="text" 
+                            type="number" 
                             class="form-control dir{{ $errors->has('phone') ? ' is-invalid' : '' }}" 
                             name="phone" 
                             value="{{ $user->phone }}" 
@@ -205,5 +205,14 @@
 @section('script')
 
 <script src="/js/edituser.js"></script>
+<script>
+    if(window.location.hash == "#not-save"){
+        swal({
+            'text':'حدث خطا اثناء حفظ البيانات',
+            'icon':'error',
+        });
+    }
+    
+</script>
 
 @endsection

@@ -167,7 +167,7 @@
                                     <div class="card bg-danger">
                                         <div class="card-body text-right">
                                             <i class="fa fa-shopping-bag pull display-3"></i>
-                                            <span class="text-right display-3">150</span>
+                                            <span class="text-right display-3">{{$cov}}</span>
                                             <h3 class="text-center">العهد</h3>
                                         </div>
                                     </div>
@@ -229,15 +229,17 @@
                                 $(function(){                                    
                                     var adds=[];
                                     var cov = [];
+                                    var labels =[];
                                     $.get('/mainchart',function(response){
                                         console.log(response);
                                         var data = JSON.parse(response);
                                         adds = data[0];
                                         cov = data[1];
+                                        labels = data[2];
                                         var config = {
                                             type: 'line',
                                             data: {
-                                                labels: ["المستهلك", "المستديم", "الخامات", "كهنه"],
+                                                labels: labels,//["المستهلك", "المستديم", "الخامات", "كهنه"],
                                                 datasets: [{
                                                     label: "احصائيات الصرف",
                                                     data: cov,

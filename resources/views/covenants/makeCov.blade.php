@@ -42,11 +42,11 @@
             </div>
             <div class="form-group">
                 <label>الرقم القومي</label>
-                <input type="text" id="ssn" placeholder="الرقم القومي" name="ssn" required title="أدخل 14 رقم" class="form-control">
+                <input type="number" id="ssn" placeholder="الرقم القومي" name="ssn" required title="أدخل 14 رقم" class="form-control">
             </div>
             <div class="form-group">
                 <label>رقم الهاتف</label>
-                <input type="text" placeholder="رقم الهاتف" id="phone" name="phone" required class="form-control">
+                <input type="number" placeholder="رقم الهاتف" id="phone" name="phone" required class="form-control">
             </div>
             <div class="form-group">
                 <label>البريد الالكتروني</label>
@@ -76,7 +76,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">الكميه</label>
-                <input type="number" min="1" id="quantity" placeholder="الكميه" class="form-control" required name="quantity"> 
+                <input type="number" min="0.01" step="0.1" id="quantity" placeholder="الكميه" class="form-control" required name="quantity"> 
             </div>
             <div class="form-group">
                 <label class="control-label">اذن الصرف</label>
@@ -109,8 +109,6 @@
         $('#'+$(this).data('class')).show(700);
     });
 
-    (function(){
-        console.log(window.location.hash);
         if(window.location.hash == "#covenant"){
             $('h3 span').each(function(){
                 if($(this).data('class') == "covenant"){
@@ -121,8 +119,27 @@
             });
             $('div.running').hide();
             $('#covenant').show(700);
+            swal({
+                'text':' تم حفظ صاحب العهده بنجاح ابدء في تسجيل العهده',
+                'icon':'success',
+            });
+        }else if(window.location.hash == "#emp-error"){
+
+            swal({
+                'text':'حدث خطأ اثناء حفظ صاحب العهده حاول مره اخري',
+                'icon':'error',
+            });
+
+        }else if(window.location.hash == "#cov-error"){
+
+            swal({
+                'text':'حدث خطأ اثناء حفظ العهده حاول مره اخري',
+                'icon':'error',
+            });
+
         }
-    }());
+
+
 
     $('#ssn').blur(function(){
         if($(this).val().length != 14){

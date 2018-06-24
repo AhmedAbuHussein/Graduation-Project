@@ -14292,7 +14292,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(78);
 
 
 /***/ }),
@@ -14316,7 +14316,8 @@ Vue.component('employee', __webpack_require__(56));
 Vue.component('itemadd', __webpack_require__(59));
 Vue.component('itemcov', __webpack_require__(64));
 Vue.component('progressbar', __webpack_require__(69));
-Vue.component('covenant', __webpack_require__(72));
+Vue.component('progressitems', __webpack_require__(72));
+Vue.component('covenant', __webpack_require__(75));
 var app = new Vue({
   el: '#app'
 });
@@ -47724,7 +47725,7 @@ $(function () {
         if (slh.getSource() == "messages") {
             message = slh.getMessage();
             if (!message.msg) {
-                $('#noti').prepend("<a class='dropdown-item notificationvue' href='writer?notify=" + message.notify + "&item=" + message.itemid + "'>تم التعديل علي مخزن <b>{{userstore}}</b> بواسطه كاتب الشطب لمراجه وحفظ التغير يرجي الدخول هنا <i>" + new Date("yyyy-mm-dd") + "</i></a>");
+                $('#noti').prepend("<a class='dropdown-item notificationvue' href='writer?notify=" + message.notify + "&item=" + message.itemid + "'>تم التعديل علي المخزن <b>الان</b> بواسطه كاتب الشطب لمراجه وحفظ التغير يرجي الدخول هنا <i>" + new Date("yyyy-mm-dd") + "</i></a>");
             } else {
                 $('#notiwriter').prepend("<a class='dropdown-item notificationvue' href='readed?notify='" + message.notify + ">تم حفظ التعديل الذي قمت به من قبل امين المخزن</a>");
             }
@@ -49786,6 +49787,276 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources\\assets\\js\\components\\progressitems.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4bb80b28", Component.options)
+  } else {
+    hotAPI.reload("data-v-4bb80b28", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            dates: []
+        };
+    },
+
+    computed: {}
+
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "col-md-4 mygraphs-tor" }, [
+    _c("div", { staticClass: "theinfo" }, [
+      _c("div", { staticClass: "h2" }, [
+        _c("span", [_vm._v("العهد ")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "option" }, [
+          _c("i", { staticClass: "fa fa-gears select-pos" }),
+          _vm._v(" "),
+          _c(
+            "select",
+            { staticClass: "selectbox form-control", attrs: { id: "thetime" } },
+            _vm._l(_vm.dates, function(date) {
+              return _c("option", { key: date, domProps: { value: date } }, [
+                _vm._v(_vm._s(date))
+              ])
+            })
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mycontent text-right" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12 col-6 infoStorProg mb-3" }, [
+          _c("label", [_vm._v("المستهلك")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "progress dir" }, [
+            _c(
+              "div",
+              {
+                staticClass: "progress-bar progress-bar-danger  ",
+                staticStyle: { width: "80%" },
+                attrs: {
+                  role: "progressbar",
+                  "aria-valuenow": "80",
+                  "aria-valuemin": "0",
+                  "aria-valuemax": "100"
+                }
+              },
+              [
+                _c("span", { staticStyle: { "font-size": "19px" } }, [
+                  _vm._v("عهد "),
+                  _c("bdi", [_vm._v("80 %")])
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12  col-6 infoStorProg mb-3" }, [
+          _c("label", [_vm._v("المستديم")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "progress dir" }, [
+            _c(
+              "div",
+              {
+                staticClass: "progress-bar progress-bar-danger",
+                staticStyle: { width: "40%" },
+                attrs: {
+                  role: "progressbar",
+                  "aria-valuenow": "80",
+                  "aria-valuemin": "0",
+                  "aria-valuemax": "100"
+                }
+              },
+              [
+                _c("span", { staticStyle: { "font-size": "19px" } }, [
+                  _vm._v("عهد"),
+                  _c("bdi", [_vm._v(" 40 %")])
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12  col-6 infoStorProg mb-3" }, [
+          _c("label", [_vm._v("الخامات")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "progress dir" }, [
+            _c(
+              "div",
+              {
+                staticClass: "progress-bar progress-bar-danger ",
+                staticStyle: { width: "60%" },
+                attrs: {
+                  role: "progressbar",
+                  "aria-valuenow": "80",
+                  "aria-valuemin": "0",
+                  "aria-valuemax": "100"
+                }
+              },
+              [
+                _c("span", { staticStyle: { "font-size": "19px" } }, [
+                  _vm._v("عهد "),
+                  _c("bdi", [_vm._v("60 %")])
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-12  col-6 infoStorProg" }, [
+          _c("label", [_vm._v("الكهنه")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "progress dir" }, [
+            _c(
+              "div",
+              {
+                staticClass: "progress-bar progress-bar-danger ",
+                staticStyle: { width: "30%" },
+                attrs: {
+                  role: "progressbar",
+                  "aria-valuenow": "80",
+                  "aria-valuemin": "0",
+                  "aria-valuemax": "100"
+                }
+              },
+              [
+                _c("span", { staticStyle: { "font-size": "19px" } }, [
+                  _vm._v("عهد "),
+                  _c("bdi", [_vm._v("30 %")])
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4bb80b28", module.exports)
+  }
+}
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(76)
+/* template */
+var __vue_template__ = __webpack_require__(77)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources\\assets\\js\\components\\covenantOwner.vue"
 
 /* hot reload */
@@ -49808,7 +50079,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49886,7 +50157,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -49996,7 +50267,7 @@ if (false) {
 }
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

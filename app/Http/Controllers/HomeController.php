@@ -27,6 +27,8 @@ class HomeController extends Controller
         $datastore = Datastore::all();
         $users = User::all();
         $stores = Store::all();
+        $coven = Covenant::count('id');
+
 
         $arr = Array(
             'title' =>'الرئيسيه',
@@ -34,6 +36,7 @@ class HomeController extends Controller
             'datastore'=>count($datastore),
             'users'=>$users,
             'stores'=>$stores,
+            'cov'=>$coven,
         ) ;
         return view('dashboard',$arr);
     }
@@ -61,7 +64,7 @@ class HomeController extends Controller
         if(Auth::user()->role == 0){
             $user = User::find($req->get('id'));
         }else{
-            $user = User::find(Auth::id());
+            $user = Auth::user();
         }
 
         $arr = array(
@@ -91,10 +94,12 @@ class HomeController extends Controller
             $password = filter_var($req->password,FILTER_SANITIZE_STRING);
         }
         if($req->hasFile('imgfile')){
-           $img = Auth::id()."_". time() . ".".$req->imgfile->getClientOriginalExtension();
+           $img = $req->id."_". time() . ".".$req->imgfile->getClientOriginalExtension();
         }
         $item = User::find($req->id);
-        $image = $item->img;
+        if(isset($item->img)){
+            $image = $item->img; // old image name;
+        }
         $item->fullname = $fullname;
         $item->username = $username;
         $item->email = $email;
@@ -117,18 +122,17 @@ class HomeController extends Controller
         $item->store_id = $req->store_id;
         if($item->save()){
             
-            if(!is_null($image) && isset($img)){
+            if(isset($image)&& !is_null($image) && isset($img)){
                 unlink(public_path('uploaded/') . $image);
             }
             if(isset($img)){
-
                 $req->imgfile->move(public_path('/uploaded'),$img);
             }
+            return redirect('/users');
+        }else{
+            return redirect($_SERVER['HTTP_REFERER'].'#not-save');
         }
-        return redirect('/users');
     }
-
-
 
     public function editDatastore(Request $req){
         $datastoreid = $req->get('id');
@@ -147,35 +151,41 @@ class HomeController extends Controller
     }
 
     public function editDatastoresave(Request $req){
-        
-        //TODO:: validate to re request
-        if(Auth::user()->store_id == $req->store_id && Auth::user()->role == 1){
+        $hash = '';
+        $this->validate($req,[
+            'source'=>'required',
+            'price'=>'required',
+            'quantity'=>'required',
+        ]);
+
+        if(Auth::user()->store_id == $req->store_id && Auth::user()->role == 1){ // store owner
             $item = Additem::find($req->itemid);
-            $oldquantity = $item->quantity;
-            if($oldquantity > $req->quantity){
+            $oldquantity = filter_var($item->quantity,FILTER_SANITIZE_STRING); // quantity of last addition
+            if($oldquantity > $req->quantity){ // new quantity lower than last addition
                 $total = $req->total - $oldquantity + $req->quantity;
-                if($total < $req->cov){
+                if($total < 0){ 
                     return redirect($_SERVER['HTTP_REFERER']);
                 }
             }
-
-            $item->source = $req->source;
-            $item->price = $req->price;
-            $item->quantity = $req->quantity;
-            $item->save();
+            $item->source = filter_var($req->source,FILTER_SANITIZE_STRING);
+            $item->price = filter_var($req->price,FILTER_SANITIZE_STRING);
+            $item->quantity = filter_var($req->quantity,FILTER_SANITIZE_STRING);
+            if($item->save()){
+                $hash = "#edit-save-owner";
+            }else{
+                $hash = "#edit-not-save";
+            }
             $this->updateQuentity($item->datastore_id);
-        }else{
-            //TODO::notifiy her after save data into edititems
+        }else{ // store writer or super admin
             $newItem = new Edititem();
-            $newItem->source = $req->source;
-            $newItem->permision = $req->permision;
-            $newItem->quantity = $req->quantity;
-            $newItem->price = $req->price;
-            $newItem->store_id = $req->store_id;
-            $newItem->additem_id = $req->itemid;
+            $newItem->source = filter_var($req->source,FILTER_SANITIZE_STRING);
+            $newItem->permision = filter_var($req->permision,FILTER_SANITIZE_STRING);
+            $newItem->quantity = filter_var($req->quantity,FILTER_SANITIZE_STRING);
+            $newItem->price = filter_var($req->price,FILTER_SANITIZE_STRING);
+            $newItem->store_id = filter_var($req->store_id,FILTER_SANITIZE_STRING);
+            $newItem->additem_id = filter_var($req->itemid,FILTER_SANITIZE_STRING);
             $newItem->user_id = Auth::id();
             if($newItem->save()){
-               
                 $user = User::where('role','=',1)->where('store_id','=',$newItem->store_id)->get();
                 User::find($user[0]->id)->notify(new DatabaseNotification($newItem));
                 $notifyid = Notification::where('notifiable_id','=',$user[0]->id)->orderBy('created_at','DESC')->limit(1)->get();
@@ -187,10 +197,13 @@ class HomeController extends Controller
                     'notify'=>$notifyid[0]->id,    
                 ];
                 StreamLabFacades::pushMessage('FCINotification','DatabaseNotification',$data);
+                $hash = "#edit-save";
+            }else{
+                $hash = "#edit-not-save";
             }
             
         }
-        return redirect('/store');
+        return redirect($_SERVER['HTTP_REFERER'] . $hash);
     }
 
     public function details(Request $req,$id){
@@ -209,7 +222,6 @@ class HomeController extends Controller
             'stores'=> $stores,
         );
         return view('additem',$arr);
-
     }
 
     public function insertitem(Request $req){
@@ -244,22 +256,27 @@ class HomeController extends Controller
         if(count($chk)>0){
 
             $new->datastore_id = $chk[0]->id;
-            $new->save(); 
-
+            if(!$new->save()){
+                return redirect($_SERVER['HTTP_REFERER'] . '#error');
+            } 
             $this->updateQuentity($chk[0]->id);
         }else{
-           $new = new Datastore();
-           $new->name = $product;
-           $new->quantity = $quantity;
-           $new->store_id = $store_id;
-           $new->save();
+           $newdata = new Datastore();
+           $newdata->name = $product;
+           $newdata->quantity = $quantity;
+           $newdata->store_id = $store_id;
+           if(!$newdata->save()){
+            return redirect($_SERVER['HTTP_REFERER'] . '#error');
+           }
            $datastore = Datastore::where('name','=',$product)
                                 ->where('store_id','=',$store_id)
                                 ->where('quantity','=',$quantity)
                                 ->orderBy('id','DESC')->limit(1)->get();
 
-            $item->datastore_id = $datastore[0]->id;
-            $item->save();
+            $new->datastore_id = $datastore[0]->id;
+            if(!$new->save()){
+                return redirect($_SERVER['HTTP_REFERER'] . '#error');
+            } 
 
         }
         return redirect('/store');
@@ -269,10 +286,9 @@ class HomeController extends Controller
         $data = Datastore::find($id);
         $data->quantity = Additem::where('datastore_id','=',$data->id)->sum('quantity') - Covenant::where('datastore_id','=',$data->id)->sum('quantity');
         $data->save();
-        
     }
 
-
+    //for update covenant for stores owners
     public function quentity(){
         $flag = true;
         $data = Covenant::all();

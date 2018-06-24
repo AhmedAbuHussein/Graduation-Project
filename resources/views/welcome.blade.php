@@ -102,8 +102,16 @@
         <script src="{{ asset('js/app.js') }}" ></script>
         <script src="/res/js/jquery.js"></script>
         <script src="/res/js/jquery-ui.min.js"></script>
+        <script src="/js/sweetalert.js"></script>
         <script>
-            $('body,html').height($(window).height());       
+            $('body,html').height($(window).height());    
+            
+            if(window.location.hash == '#not-found'){
+                swal({
+                    'text':'لا توجد عهد لهذا الموظف ',
+                    'icon':'warning',
+                });
+            }
          </script>
     </body>
 </html>

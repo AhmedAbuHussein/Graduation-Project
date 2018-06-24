@@ -129,7 +129,7 @@
                             <label for="phone" class="col-md-3 order-1 col-form-label text-md-right">الهاتف الجوال</label>
 
                             <div class="col-md-9 order-0">
-                                <input id="phone" type="text" class="dir form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
+                                <input id="phone" type="number" class="dir form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required>
 
                                 @if ($errors->has('phone'))
                                     <span class="invalid-feedback">

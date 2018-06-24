@@ -14,7 +14,7 @@ class ChartController extends Controller
         $covcount = count(Covenant::all());
         $avgcov = round((Covenant::sum('quantity') / Datastore::sum('quantity')) * 100,3);
         $datastore = \App\Models\Datastore::all();
-        $dateAdd = Additem::where('date','>',(date('Y')-5).'-06-30')
+        $dateAdd = Additem::where('date','>',(date('Y')-1).'-06-30')
                                             ->orderBy('date','DESC')
                                             ->get();
         
@@ -59,4 +59,6 @@ class ChartController extends Controller
         }
         return $prog;
     }
+
+    
 }

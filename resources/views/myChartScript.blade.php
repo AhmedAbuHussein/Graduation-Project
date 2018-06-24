@@ -45,7 +45,7 @@ window.onload = function() {
     $('#startDate').change(function(){
 
         var startdate = $(this).val();
-        var endDate = $('#endDate').val();
+        var endDate = $('#endDate').val(); 
     
         $.get('/chartAjax',{'start':startdate,'end':endDate},function(res){
             var data = JSON.parse(res);

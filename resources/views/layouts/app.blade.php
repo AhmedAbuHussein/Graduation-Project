@@ -17,6 +17,7 @@
     <link href="/res/css/font-awesome.min.css" rel="stylesheet">
     <script src="/res/js/jquery.js"></script>
     <script src="/StreamLab/StreamLab.js"></script>
+    <script src="/js/sweetalert.js"></script>
     <style>
         
         *{

@@ -25,9 +25,9 @@ class CovenantController extends Controller
 
     public function checkquantity(Request $req){
         $item = $req->get('id');
-        $quantity = Datastore::find($item);
+        $item = Datastore::find($item);
 
-        return $quantity->quantity;
+        return $item->quantity;
     }
 
     public function checkpermision(Request $req){
@@ -59,9 +59,11 @@ class CovenantController extends Controller
         $item->phone = $phone;
         $item->email = $email;
         $item->establishment = $est;
-        $item->save();
-        return redirect('/make-covenant#covenant');
-         
+        if($item->save()){
+            return redirect('/make-covenant#covenant');
+        }else{
+            return redirect('/make-covenant#emp-error');   
+        }
     }
 
     public function insertCov(Request $req){
@@ -89,8 +91,10 @@ class CovenantController extends Controller
         if($item->save()){
             $this->updateQuentity($datastoreid);
             return redirect('/covenant-owner');
+        }else{
+
+            return redirect($_SERVER['HTTP_REFERER'] . '#cov-error');
         }
-        return redirect('/dashboard');
 
     }
 

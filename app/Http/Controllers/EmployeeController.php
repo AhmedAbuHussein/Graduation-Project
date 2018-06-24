@@ -22,7 +22,7 @@ class EmployeeController extends Controller
         if(count($emp) > 0){
             return redirect('/employee/'.$emp[0]->id);
         }else{
-            return redirect('/');
+            return redirect('/#not-found');
         }
     }
 

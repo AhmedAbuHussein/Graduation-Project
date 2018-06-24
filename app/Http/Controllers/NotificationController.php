@@ -81,12 +81,6 @@ class NotificationController extends Controller
         $datastore->save();
     }
 
-    public function notReaded(Request $req){
-        $notid = $req->get('notify');
-        $this->markAsReaded($notid);
-        return redirect('/store');
-
-    }
 
     public function markAsReaded($notify){
         $notification = Auth::user()->unreadNotifications;

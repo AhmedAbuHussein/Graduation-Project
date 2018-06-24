@@ -40,7 +40,7 @@
                 
                 <div class="form-group row pl-3 pr-3">
                     <label for="price" class="control-label col-md-2 order-0">سعر القطعه</label>
-                    <input id="price" name="price" type="number" step="0.01" min="1" class="form-control order-1 col-md-10" required placeholder="سعر القطعه ">
+                    <input id="price" name="price" type="number" step="0.01" min="0.5" class="form-control order-1 col-md-10" required placeholder="سعر القطعه ">
                 </div>
                 
                 <div class="form-group row pl-3 pr-3">
@@ -89,6 +89,14 @@
 @section('script')
 
 <script>
+
+    if(window.location.hash == "#error"){
+        swal({
+            'text':'حدث خطا اثناء الحفظ',
+            'icon':'error'
+        });
+    }
+
     var chckperm = false;
 $(function(){
     var id = $("#store_id").val();
@@ -115,7 +123,7 @@ $(function(){
         });
 
     });
-
+ 
     $('#permision').blur(function(){
         per = $(this).val();
         app = $(this);
