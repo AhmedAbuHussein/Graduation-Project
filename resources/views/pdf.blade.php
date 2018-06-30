@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="Ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>pdf</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="/res/css/jquery-ui.min.css" rel="stylesheet">
-    <link href="/res/css/font-awesome.min.css" rel="stylesheet">
-    
 <style>
 
         body{
-            direction: rtl;
+            font-family: 'dejavu sans', sans-serif;
+            direction:rtl;
+            text-alignment:right;
             background: white;
-            font-size: 12pt;
+            font-size: 12px;
         }
-        .part img{
-            margin-top: -1rem;
+        .container{
+            max-width: 960px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
         }
+        .row{
+            overflow: hidden;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+        .col-4{
+            float: right;
+            width: 28%;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;        
+        }
+
         /*start global frame*/
         .top_header, .second_part ,table{
-            margin-top: 3rem;
+            margin-top: 50px;
         }
         .top_header .right span,.second_part .second span ,table thead tr th{
             color: #C5251E;
@@ -35,7 +48,34 @@
             font-weight: bold;  
         }
         hr{
-            border-width: .2rem;
+            border-width: 1px;
+        }
+        img{
+            border-radius: 100%;
+            width: 120px;
+            height: 120px;
+            margin-top: -10px;
+        }
+        table{
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            direction: rtl;
+            display: table;
+            border-collapse: separate;
+            border-spacing: 2px;
+            border-color: grey;
+        }
+        .text-center{
+            text-align: center !important;
+        }
+        .text-right{
+            text-align: right !important;
+        }
+        table tr td , th{
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
         }
         /*end global frame*/
 </style>
@@ -45,88 +85,85 @@
 <body>
    
     
-<!--           start first header-->
-<div class="parent">
-            <div class="top_header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="part text-right right">
-                                <h4>اسم الموظف: <span>احمد محمد حسن</span> </h4>
-                                <h4>الوظيفه: <span>امين مخزن</span> </h4>
-                                <h4>المخزن: <span>المستهلك</span></h4>
-                            </div>    
-                        </div>
-                        <div class="col-4">
-                            <div class="part text-center middle">
-                                <h2>جامعه قناه السويس</h2>
-                                <h4>الاداره العامه للعهد والمخازن</h4>
-                                <h4>2018 / 6 / 10</h4>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="part text-center">
-                              <img class="rounded-circle" src="img/ahmed.jpg" width="120px" height="120px">
-                            </div>
-                        </div>
+<!--start first header-->
+<div class="parent" id="content">
+    <div class="top_header">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="part text-right right">
+                        <h4><bdi>اسم الموظف: <span>{{Illuminate\Support\Facades\Auth::user()->fullname}}</span> </bdi></h4>
+                        <h4>الوظيفه: <span>{{Illuminate\Support\Facades\Auth::user()->job_name}}</span> </h4>
+                        <h4>المخزن: <span>{{Illuminate\Support\Facades\Auth::user()->store->name}}</span></h4>
+                    </div>    
+                </div>
+                <div class="col-4">
+                    <div class="part text-center middle">
+                        <h2>جامعه قناه السويس</h2>
+                        <h4>الاداره العامه للعهد والمخازن</h4>
+                        <h4>{{Date('Y-M-D')}}</h4>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="part text-center">
+                        <img src="img/logo.jpg" width="120px" height="120px">
+                    </div>
+                </div>
 
-                    </div>
-                </div>
             </div>
-            <hr>
-<!--            end first header-->
-<!--            start second part-->
-            <div class="second_part">
-                <div class="container">
-                    <div class="second text-right">
-                        <h5>العناصر الكليه في المخزن: <span> 100 </span></h5>
-                    </div>
-                    <div class="second text-right">
-                        <h5>العناصر التي تم صرفها : <span> 200 </span></h5>
-                    </div>
-                    <div class="second text-right">
-                        <h5>االعناصر المتاحه في المخزن: <span> 300 </span></h5>
-                    </div>
-                    <div class="second text-right">
-                        <h5>عدد مستخدمين العهد:</h5>
-                        <table class="table">
-                            <thead>
-                              <tr class="text-right">
-                                <th>المسلسل</th>
-                                <th>الاسم</th>
-                                <th>الهاتف</th>
-                                <th>الجهه</th>
-                                <th>الكميه</th>
-                                <th>العناصر</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>1</td>
-                                <td>احمد محمد علي</td>
-                                <td>01002506687</td>
-                                <td>جامعه قناه السويس</td>
-                                <td>200 جهاز</td>
-                                <td>كمبيوتر</td>
-                              </tr>
-                              <tr>
-                                <td>2</td>
-                                <td>احمد محمد علي</td>
-                                <td>01002506687</td>
-                                <td>جامعه قناه السويس</td>
-                                <td>200 جهاز</td>
-                                <td>كمبيوتر</td>
-                              </tr>
-                            </tbody>
-                      </table>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <hr>
+    <!--            end first header-->
+    <!--            start second part-->
+    <div class="second_part">
+        <div class="container">
+            <div class="second text-right">
+            <h4>العناصر الكليه في المخزن: <span> {{$all}} </span></h4>
             </div>
-<!--            end second part-->
+            <div class="second text-right">
+                <h4>العناصر التي تم صرفها : <span> {{$cov}} </span></h4>
+            </div>
+            <div class="second text-right">
+                <h4>العناصر المتاحه في المخزن: <span> {{$stay}} </span></h4>
+            </div>
+            <div class="second text-right">
+                    <h4>كميه العجز بالمخزن: <span> {{$stay - ($all - $cov)}} </span></h4>
+                </div>
+            <div class="second text-right">
+                <h4>عدد مستخدمين العهد: <span>{{count($emps)}}</span></h4>
+                <table>
+                    <thead>
+                        <tr class="text-right">
+                        <th>المسلسل</th>
+                        <th>الاسم</th>
+                        <th>الهاتف</th>
+                        <th>الجهه</th>
+                        <th>الكميه</th>
+                        <th>العناصر</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($emps as $emp)
+                            
+                        <tr>
+                        <td>{{$emp->id}}</td>
+                        <td>{{$emp->name}}</td>
+                        <td>{{$emp->phone}}</td>
+                        <td>{{$emp->establishment}}</td>
+                        <td>{{$emp->quantity}}</td>
+                        <td>{{$emp->dname}}</td>
+                        </tr>
+                        @endforeach
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
 </div>
-
-<script src="{{ asset('js/app.js') }}" ></script>
-<script src="/res/js/jquery.js"></script>
+<!--end second part-->
+</div>
 
 </body>
 </html>

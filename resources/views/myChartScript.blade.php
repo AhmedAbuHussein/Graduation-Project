@@ -15,7 +15,7 @@ var input1 =  ['مخزن المستهلك ','مخزن المستدم ',' مخز�
 	input3 = [ arr,arr2],
 	input4 = ['المتاح','المستهلك'],
 	input5 = 'canvas-stores-graph',
-	myinput1 = 'doughnut',
+	myinput1 = 'line',
 	myinput2 =[100,50,20,60],
 	myinput3 = ["المستهلك", "المستديم","الخامات","الكهنه"],
 	myinput5 = "chart-area",
@@ -99,8 +99,8 @@ function make_doughnut(type,data_set,labels_data_set,legend_postion,canvas_id,ba
         data: {
             datasets: [{
                 data: data_set,
-                backgroundColor: background_color,
-                label: 'Dataset 1'
+                backgroundColor: background_color[2],
+                label:"المخازن"
             }],
             labels: labels_data_set
         },
@@ -111,7 +111,6 @@ function make_doughnut(type,data_set,labels_data_set,legend_postion,canvas_id,ba
             },
             title: {
                 display: false,
-                text: 'المتاح حاليا'
             },
             animation: {
                 animateScale: true,

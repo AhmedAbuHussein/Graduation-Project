@@ -16,6 +16,21 @@ class EmployeeController extends Controller
         return view('employee',$arr);
     }
 
+    public function employee($id){
+        $user = Employee::find($id);
+        if(!$user){
+            return redirect('covenant-owner');
+        }
+        $covenant = Covenant::where('employee_id','=',$user->id)->orderBy('date','DESC')->paginate($perPage = 12, $columns = ['*'], $pageName = 'cove');
+        $arr = array(
+            'title'=>'الملف الشخصي',
+            'user'=>$user,
+            'covenants'=>$covenant,
+        );
+
+        return view('employees',$arr);
+    } 
+
     public function show(Request $req){
         $ssn = $req->ssn;
         $emp = Employee::where('ssn','=',$ssn)->get();
@@ -45,5 +60,12 @@ class EmployeeController extends Controller
       
 
             return json_encode($data);
+    }
+
+    public function errorRoute(){
+        $arr = array(
+            'title' => '404 not found',
+        );
+        return view('error.error',$arr);
     }
 }

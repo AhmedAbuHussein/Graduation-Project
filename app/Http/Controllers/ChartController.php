@@ -7,17 +7,17 @@ use App\Models\Covenant;
 use App\Models\Datastore;
 use App\Models\Additem;
 use App\Models\Store;
+use App\Models\Employee;
 
 class ChartController extends Controller
 {
     public function chart(){
-        $covcount = count(Covenant::all());
+        $covcount = count(Employee::all());
         $avgcov = round((Covenant::sum('quantity') / Datastore::sum('quantity')) * 100,3);
         $datastore = \App\Models\Datastore::all();
         $dateAdd = Additem::where('date','>',(date('Y')-1).'-06-30')
                                             ->orderBy('date','DESC')
                                             ->get();
-        
         $date = array();
         foreach($dateAdd as $d){
             array_push($date,$d->date);
@@ -60,5 +60,4 @@ class ChartController extends Controller
         return $prog;
     }
 
-    
 }

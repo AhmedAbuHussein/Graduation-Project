@@ -114,17 +114,17 @@
 <div class="assistant-graphs">
     <div class="container">
         <div class="mygraps">
-            <div class="row">
-                <progressitems></progressitems>
-                <div class="col-md-8 mygraphs-tor">
+            <div class="">
+                <div class="mygraphs-tor">
                     <div class="theinfo">
-                        <div class="h2">
+                        <div class="h2 text-right">
+                            
+                            <span>عدد الفئات المتاحه في كل مخزن</span>
                             <i class="fa fa-database"></i>
-                            <span>المتاح حاليا في المخزن</span>
                         </div>
                         <div class="mycircl-grap" style="width: 90%;">
 
-                            <canvas id="chart-area" style="max-height:260px;" />
+                            <canvas id="chart-area" style="max-height:350px;" />
                         </div>
                     </div>
                 </div>

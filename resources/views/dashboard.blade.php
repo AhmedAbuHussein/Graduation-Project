@@ -39,7 +39,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <textarea name="msg" rows="10" style="direction:rtl; resize:none;" class="form-control" placeholder="رسالتك"></textarea>    
+                                    <textarea name="msg" required rows="10" style="direction:rtl; resize:none;" class="form-control" placeholder="رسالتك"></textarea>    
                                 </div>                            
                             </form>
                         </div>

@@ -9,7 +9,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('send-sms','ProfileController@sendsms');
-Route::post('employee','EmployeeController@show');
+
 /*************************** Dashboard ***************************/ 
 Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/users', 'HomeController@users')->name('users');
@@ -21,7 +21,8 @@ Route::get('/modify','HomeController@modifyuser');
 Route::post('/modify','HomeController@modifyusersave');
 
 Route::get('/profile/{id}','ProfileController@profile');
-Route::get('/employee/{id}','ProfileController@employee');
+Route::get('/employee/{id}','EmployeeController@employee');
+Route::post('employee','EmployeeController@show');
 
 Route::get('/edit','HomeController@editDatastore');
 Route::Post('/edit','HomeController@editDatastoresave');
@@ -31,8 +32,6 @@ Route::get('/details/{id}','HomeController@details');
 Route::get('/additem','HomeController@additem');
 Route::post('/additem','HomeController@insertitem');
 Route::get('/checkaddperm','AjaxController@checkaddperm');
-
-
 
 Route::get('/pdf','PDFController@index');
 
@@ -66,7 +65,10 @@ Route::get('/checkQuantity','AjaxController@checkQuantity');
 Route::post('/progress','ChartController@getprogress');
 Route::post('/notification/get','NotificationController@get');
 Route::get('/owner-covenants','EmployeeController@covenantsData');
-/****************************************************************************************/
 
-Route::get('/test','HomeController@quentity');
-Route::get('/testt','CovenantController@totalQuantity');
+/****************************************************************************************/
+// Route::get('/test','HomeController@quentity');
+// Route::get('/testt','CovenantController@totalQuantity');
+// get any error route
+Route::get('/{a}','EmployeeController@errorRoute');
+Route::get('/{a}/{b}','EmployeeController@errorRoute');

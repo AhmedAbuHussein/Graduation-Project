@@ -85,6 +85,8 @@
     <div class="card mt-1">
         <div class="card-heading bg-info p-2 text-right text-white font-weight-bold">الاضافات التي تمت علي المخزن</div>
         <div class="card-body py-0">
+            @if (count($data)>0)
+                
             <div class="row">
                 @foreach ($data as $item)
                 <div class="col-md-4 col-lg-3 col-sm-6 discard">
@@ -102,12 +104,17 @@
             <div class="text-center">
                 <div class="pagination justify-content-center">{{$data}}</div>
             </div>
+            @else
+            <h3 class="text-center">لم يتم تحرير اضافات من قبل هذا المستخدم</h3>
+            @endif
         </div>
     </div>
-
+ 
     <div class="card mt-1 mb-3">
         <div class="card-heading bg-info p-2 text-right text-white font-weight-bold">الصرف الذي تم علي المخزن</div>
         <div class="card-body py-0">
+            @if (count($covenants)>0)
+            
             <div class="row">
                 @foreach ($covenants as $item)
                 <div class="col-md-4 col-lg-3 col-sm-6 discard">
@@ -125,6 +132,37 @@
             <div class="text-center">
                 <div class="pagination justify-content-center">{{$covenants}}</div>
             </div>
+            @else
+            <h3 class="text-center">لم يتم تحرير عهد من قبل هذا المستخدم</h3>
+            @endif
+        </div>
+    </div>
+
+    <div id="edit" class="card mt-1 mb-3">
+        <div class="card-heading bg-info p-2 text-right text-white font-weight-bold">التعديلات التي تم علي المخزن</div>
+       
+        <div class="card-body py-0">
+            @if (count($edits) > 0)
+                
+            <div class="row">
+                @foreach ($edits as $item)
+                <div class="col-md-4 col-lg-3 col-sm-6 discard">
+                    <div class="card my-2 text-center">
+                        <div class="card-body">
+                            <h3 class="card-title">{{$item->source}}</h3>
+                            <bdi class="card-subtitle d-block">المخزن : <span>{{$item->store->name}}</span></bdi>
+                            <bdi class="card-text d-block">الكميه : <span>{{$item->quantity}}</span></bdi>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <div class="text-center">
+                <div class="pagination justify-content-center">{{$edits}}</div>
+            </div>
+            @else
+            <h3 class="text-center">لم يتم التعديل علي اي عنصر </h3>
+            @endif
         </div>
     </div>
 
